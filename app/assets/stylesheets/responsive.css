@@ -1,0 +1,199 @@
+@media screen and (max-width: 768px) {
+body {
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+  /* ここからheaderページ */
+.header{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.headerButtonOpen {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+}
+.headerButtonOpen span,
+.headerButtonOpen span:before {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 50px;
+    background-color: black;
+    position: absolute;
+}
+.headerButtonOpen span:before {
+    bottom: 20px;
+}
+#headerButtonClick:checked ~ .headerButtonOpen span {
+    top: 1;
+    transform: rotate(-45deg);
+}
+#headerButtonClick:checked ~ .headerButtonOpen span::before {
+    content: "";
+    bottom: 0;
+    transform: rotate(90deg);
+}
+#headerButtonClick {
+    display: none;
+}
+.topHeader {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    z-index: 80;
+    background-color:white;
+    transition: all 0.5s;
+    display:flex;
+    flex-direction: column;
+}
+.ulLogo{
+    display:inline-block;
+    font-size: 60px;
+    font-weight: bold;
+    margin-top:auto;
+    margin-bottom:auto;
+    text-align: center;
+    width: 100%;
+}
+.topPage{
+    padding-bottom: 50px;
+    margin-right: 0;
+}
+.ulSNS{
+    margin:0 auto;
+    gap:15px;
+    padding-bottom: 30px;
+}
+.twitter{
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 3px #000;
+    text-align: center;
+}
+.twitterIcon{
+    width:50px;
+    height:50px;
+    transform: translate(0px, 28px);
+}
+.instagram {
+    width: 100px;
+    height: 100px;
+    margin-left: 16px;
+    margin-right: 22px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 3px #000;
+    text-align: center;
+}
+.instagramIcon {
+    width: 48px;
+    height: 48px;
+    transform: translate(0px, 26px);
+}
+
+/* ここからheaderLINEページ */
+.lineHeaderLink {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.lineHeaderIcon {
+    width: 70px;
+    height: 60px;
+    border-radius: 5px;
+    padding-right:10px;
+}
+.lineHeader {
+    background-color: rgb(95, 223, 91);
+    width: 900px;
+    height: 130px;
+    border-radius: 60px;
+    text-align: center;
+    left:100%;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.lineHeaderText {
+    text-align: left;
+    padding-top:50px;
+    padding-bottom:50px;
+    margin-left: 13px;
+    font-size: 30px;
+}
+.lineHeaderLight {
+    color: white;
+    margin-left: 25px;
+    width:40px;
+    height:40px;
+}
+.headerSite{
+    display: flex;
+    font-size: 30px;
+    margin-top: 60px;
+    margin-bottom: 100px;
+    justify-content: center;
+}
+.LineHeaderDark{
+    width:30px;
+    height:30px;
+    margin-left: 25px;
+}
+#headerButtonClick:checked ~ .topHeader {
+    left: 0;
+}
+
+/* ここからHeroページ */
+.itHero{
+    width:1000px;
+    margin:0 auto;
+}
+.posseAssessment{
+    font-size: 30px;
+    margin-left: 60px;
+}
+.itQuiz {
+    margin-top: 12px;
+    margin-bottom: 150px;
+    margin-left: 60px;
+}
+
+  /* ここからクイズページ */
+main {
+    width: 984px;
+    margin: 0 auto;
+}
+.quizOne {
+    padding: 10px;
+}
+.quizBlock{
+    width:984px;
+}
+.quizAnswer {
+    display:block;
+}
+#quizAnswer > li >button{
+    width:100%;
+    margin: 0 auto;
+}
+.quizCite{
+    width:950px;
+    margin: 0 auto;
+}
+
+}
