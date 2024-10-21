@@ -57,3 +57,9 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.7"
+
+gem 'prettier'
+gem 'syntax_tree'
+gem 'haml'
+gem 'rbs'
+gem 'foreman'
