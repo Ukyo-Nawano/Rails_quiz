@@ -38,3 +38,17 @@ rbenv global 3.2.2
 gem install rails -v 7.2.1
 
 bin/rails s　でtailwindも起動できる
+
+brew update
+brew upgrade ruby
+gem install bundler
+bundle install
+
+model作成
+rails generate model Quizzes content:string image:string supplement:string
+rails db:migrate
+controller作成
+rails generate controller Quizzes
+seeder作成
+rails generate seed Quizzes content:string image:string supplement:string
+rails db:seed

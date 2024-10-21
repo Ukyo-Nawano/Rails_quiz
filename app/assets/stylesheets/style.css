@@ -84,7 +84,7 @@ a {
 
 /* ここからheroページ */
 .itHero {
-  background-image: url(../img/bg-hero.png);
+  background-image: url('bg-hero.png');;
   background-position: center;
   background-size: 110%;
   background-repeat: no-repeat;
@@ -108,7 +108,7 @@ a {
 }
 /* ここからQ1ページ */
 .main {
-  width: 984px;
+  width: 100%;
   margin: 0 auto;
 }
 .quizOne {
@@ -176,7 +176,7 @@ a {
   height: 80px;
   display: flex;
   align-items: center;
-  background-image:url('../img/icon-arrow.svg');
+  background-image: url('icon-arrow.svg');
   background-repeat: no-repeat;
   background-position: right 10% bottom 50%;
 }
@@ -236,7 +236,7 @@ a {
   border-radius: 8px;
   width: 100%;
   height:80px;
-  background-image: url('../img/icon-note.png');
+  background-image: url('icon-note.png');
   background-repeat: no-repeat;
   padding-left: 75px;
   font-weight: bold;
@@ -246,7 +246,7 @@ a {
 
 /* ここからLINEmainページ */
 .lineMain {
-  background: url(../img/bg-line.png);
+  background: url("img/bg-line.png");
   border-radius: 56px;
   height: 357px;
   padding: 68px;

@@ -1,6 +1,6 @@
-class QuizesController < ApplicationController
- 
+class QuizzesController < ApplicationController
     def index
+        @quizzes = Quiz.all
     end
   
     def show
@@ -20,5 +20,4 @@ class QuizesController < ApplicationController
   
     def destroy
     end
-  end
-  
+end

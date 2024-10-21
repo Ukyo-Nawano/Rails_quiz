@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+    <header class="header">
+        <div class="posseLogo">
+            <%= image_tag "logo.png", alt: "POSSE", class: "logo" %>
+        </div>
+        <input type="checkbox" id="headerButtonClick">
+        <label for="headerButtonClick" class="headerButtonOpen">
+            <span></span>
+        </label>
+        <nav class="topHeader">
+            <ul class="ulLogo">
+                <li class="topPage">
+                    <a href="">POSSEとは</a>
+                </li>
+                <li class="topQuiz">
+                    <a href="">クイズ</a>
+                </li>
+            </ul>
+            <div class="lineHeader">
+                <a href="https://line.me/R/ti/p/@651htnqp?from=page" target="_blank" rel="noopener noreferrer"
+                    class="lineHeaderLink">
+                    <%= image_tag "lineicon.jpg", class: "lineHeaderIcon" %>
+                    <span class="lineHeaderText">
+                        POSSE公式LINEを追加
+                    </span>
+                    <%= image_tag "icon-link-light.png", class: "lineHeaderLight" %>
+            </div>
+            </a>
+            <a href="" class="headerSite">
+                POSSE 公式サイト
+                <%= image_tag "icon-link-dark.png", class: "LineHeaderDark" %>
+            </a>
+            <ul class="ulSNS">
+                <li class="twitter">
+                    <a href="https://twitter.com/posse_program">
+                        <%= image_tag "icon-twitter.png", class: "twitterIcon" %>
+                    </a>
+                </li>
+                <li class="instagram">
+                    <a href="https://www.instagram.com/posse_programming/">
+                        <%= image_tag "icon-instagram.png", class: "instagramIcon" %>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="itHero">
+        <div class="quizHero">
+            <p class="posseAssessment">
+                POSSE課題
+            </p>
+            <p class="itQuiz">
+                ITクイズ
+            </p>
+        </div>
+    </div>
+    <main class="main">
+        <% @quizzes.each do |quiz| %>
+  <div class="quiz">
+  <p>Q<%= quiz.id %></p>
+    <p><%= quiz.content %></p>
+<%= image_tag quiz.image, alt: "Quiz Image", class: "" %>
+
+    <p><%= quiz.supplement %></p>
+  </div>
+<% end %>
+    </main>
+
+    <div class="lineMain main">
+        <%= image_tag "lineicon.png", class: "lineMainIcon" %>
+        <div class="lineM">
+            <h1 class="lineTitle">POSSE 公式LINE
+            </h1>
+        </div>
+    </div>
+        <div class="lineMainText">
+            <p>公式LINEにてご質問を随時受け付けております。
+                <br>詳細やPOSSE最新情報につきましては、公式LINEにてお知らせ致しますので
+                <br>下記ボタンより友達追加をお願いします！
+            </p>
+        </div>
+        <a href="https://line.me/R/ti/p/@651htnqp?from=page" target="_blank" rel="noopener noreferrer"
+            class="lineMainLink">
+            <div class="lineWhite">
+                <p class="lineAdd">LINE追加
+                </p>
+                <%= image_tag "icon-link-dark.png", class: "lined" %>
+            </div>
+        </a>
+    </div>
+    </div>
+    <footer class="footer main">
+        <div class="posseLogoFooter">
+            <%= image_tag "logo.png", class: "POSSE" %>
+        </div>
+        <nav class="topFooter">
+            <div class="topFooterPage">
+                <a href="">POSSE公式サイト</a>
+            </div>
+            <div class="tiFooter">
+                <div class="twitterFooter">
+                    <a href="https://twitter.com/posse_program">
+                        <%= image_tag "icon-twitter.png", class: "twitterIconFooter" %>
+                    </a>
+                </div>
+                <div class="instagramFooter">
+                    <a href="https://www.instagram.com/posse_programming/">
+                        <%= image_tag "icon-instagram.png", class: "instagramIconFooter" %>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div class="copyRight">
+            <small>©︎2022 POSSE</small>
+        </div>
+    </footer>
+</body>
+
+</html>
