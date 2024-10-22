@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "application#hello"
   resources :quizzes
+  resources :choices
 end

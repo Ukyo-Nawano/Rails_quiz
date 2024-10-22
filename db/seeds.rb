@@ -15,3 +15,23 @@ Quiz.create([
     { content: 'イギリスのコンピューター科学者であるギャビン・ウッド氏が提唱した、ブロックチェーン技術を活用した「次世代分散型インターネット」のことをなんと言うでしょう？', image: 'quiz05.png', supplement: '' },
     { content: '先進テクノロジー活用企業と出遅れた企業の収益性の差はどれくらいあると言われているでしょうか？', image: 'quiz06.png', supplement: 'Accenture Technology Vision 2021' },
 ])
+Choice.create([
+    { question_id: 1, name: '約28万人', is_valid: false },
+    { question_id: 1, name: '約79万人', is_valid: true },
+    { question_id: 1, name: '約183万人', is_valid: false },
+    { question_id: 2, name: 'INTECH', is_valid: false },
+    { question_id: 2, name: 'BIZZTECH', is_valid: false },
+    { question_id: 2, name: 'X-TECH', is_valid: true },
+    { question_id: 3, name: 'Internet of Things', is_valid: true },
+    { question_id: 3, name: 'Integrate into Technology', is_valid: false },
+    { question_id: 3, name: 'Information on Tool', is_valid: false },
+    { question_id: 4, name: 'Society 5.0', is_valid: true },
+    { question_id: 4, name: 'CyPhy', is_valid: false },
+    { question_id: 4, name: 'SDGs', is_valid: false },
+    { question_id: 5, name: 'Web3.0', is_valid: true },
+    { question_id: 5, name: 'NFT', is_valid: false },
+    { question_id: 5, name: 'メタバース', is_valid: false },
+    { question_id: 6, name: '約2倍', is_valid: false },
+    { question_id: 6, name: '約5倍', is_valid: true },
+    { question_id: 6, name: '約11倍', is_valid: false },
+])

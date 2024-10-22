@@ -1,6 +1,6 @@
-class QuizzesController < ApplicationController
+class ChoicesController < ApplicationController
     def index
-        @quizzes = Quiz.includes(:choices).all
+        @choices = Choice.all
     end
   
     def show

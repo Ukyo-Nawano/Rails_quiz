@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_21_044243) do
-  create_table "quizzes", force: :cascade do |t|
-    t.string "content"
-    t.string "image"
-    t.string "supplement"
+ActiveRecord::Schema[7.2].define(version: 2024_10_22_040406) do
+  create_table "choices", force: :cascade do |t|
+    t.integer "question_id"
+    t.string "name"
+    t.boolean "is_valid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
