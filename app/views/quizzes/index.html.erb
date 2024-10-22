@@ -81,12 +81,28 @@
                         </p>
                         <% end %>
                     </div>
-                    <div class="result">
-                        <div class="correct hidden text-2xl font-bold mt-4">正解: <span class="correct_choice"></span></div>
-                        <div class="incorrect hidden text-2xl font-bold mt-4">不正解: <span class="correct_answer"></span></div>
+                    <div class="correct hidden">
+                        <p class="bg-[#e34e70] rounded-lg text-white text-3xl w-20 h-16 font-bold mb-6 flex justify-center items-center">A</p>
+                        <div class=" bg-[rgb(255,242,245)] text-2xl font-bold mt-4 rounded-lg mt-4 px-10 py-6">
+                            <p class="text-[rgb(227,78,112)]">正解 !</p>
+                            <div class="flex pt-2">
+                                <p class="text-xl font-bold">A：</p>
+                                <span class="correct_choice text-xl font-bold"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="incorrect hidden">
+                        <p class="bg-[#e34e70] rounded-lg text-white text-3xl w-20 h-16 font-bold mb-6 flex justify-center items-center">A</p>
+                        <div class=" bg-[rgb(233,243,248)] text-2xl font-bold mt-4 rounded-lg mt-4 px-10 py-6">
+                            <p class="text-[#0071BC]">不正解 ...</p>
+                            <div class="flex pt-2">
+                                <p class="text-xl font-bold">A：</p>
+                                <span class="correct_answer text-xl font-bold"></span>
+                            </div>
+                        </div>
                     </div>
                     <% if quiz.supplement.present? %>
-                    <p class="flex items-center rounded-2xl bg-gray-200 w-full h-20 bg-no-repeat pl-8 font-bold text-lg bg-bottom-[50%] gap-4">
+                    <p class="flex items-center rounded-2xl bg-gray-200 w-full h-20 bg-no-repeat pl-8 font-bold text-lg bg-bottom-[50%] gap-4 mt-2">
                         <%= image_tag "icon-note.png", class: "w-6 py-8" %>
                         <%= quiz.supplement %>
                     </p>

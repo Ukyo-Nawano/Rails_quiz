@@ -45,36 +45,6 @@
   border:solid 5px #0071BC;
   background-image: none;
 }
-#arrow {
-  width: 16px;
-  height: 16px;
-  margin-left: auto;
-}
-.answerResultFalse {
-  display: none;
-  background-color: rgb(233, 243, 248);
-  border-radius: 8px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  padding: 24px 40px;
-}
-.result {
-  color: rgb(55, 102, 255);
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 24px;
-}
-.answerResultRight{
-  display: none;
-  background-color:rgb(255, 242, 245);
-  border-radius: 8px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  padding: 24px 40px;
-}
-.resultRight{
-  color:rgb(227, 78, 112);
-}
 .answerBlock {
   display: flex;
   align-items: baseline;

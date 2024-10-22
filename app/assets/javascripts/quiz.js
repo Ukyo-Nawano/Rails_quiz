@@ -1,28 +1,41 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", function() {
-    const choices = document.querySelectorAll('.choice');
+    const quizzes = document.querySelectorAll('[data-quiz-id]');
 
-    choices.forEach(choice => {
-        choice.addEventListener('click', function() {
-            const isValid = choice.getAttribute('data-is-valid') === 'true';
-            const quizContainer = choice.closest('[data-quiz-id]');
-            const resultContainer = quizContainer.querySelector('.result');
-            const correctContainer = quizContainer.querySelector('.correct');
-            const incorrectContainer = quizContainer.querySelector('.incorrect');
-            const correctChoiceSpan = quizContainer.querySelector('.correct_choice');
-            const correctAnswerSpan = quizContainer.querySelector('.correct_answer');
-            const correctChoice = quizContainer.querySelector('.choice[data-is-valid="true"]');
+    quizzes.forEach(quiz => {
+        const choices = quiz.querySelectorAll('.choice');
+        const correctContainer = quiz.querySelector('.correct');
+        const incorrectContainer = quiz.querySelector('.incorrect');
+        const correctChoice = quiz.querySelector('.choice[data-is-valid="true"]');
 
-            correctContainer.classList.add('hidden');
-            incorrectContainer.classList.add('hidden');
+        choices.forEach(choice => {
+            choice.addEventListener('click', function() {
+                // すでに選択されている場合は何もしない
+                if (quiz.querySelector('.choice.selected')) return;
 
-            if (isValid) {
-                correctContainer.classList.remove('hidden');
-                correctChoiceSpan.textContent = choice.textContent;
-            } else {
-                incorrectContainer.classList.remove('hidden');
-                correctAnswerSpan.textContent = correctChoice.textContent;
-            }
+                // 正解かどうかを判断
+                const isValid = choice.getAttribute('data-is-valid') === 'true';
+                const correctChoiceSpan = correctContainer.querySelector('.correct_choice');
+                const correctAnswerSpan = incorrectContainer.querySelector('.correct_answer');
+
+                // すべての選択肢を非活性にする
+                choices.forEach(c => {
+                    c.classList.add('selected'); // すでに選択された選択肢としてマーク
+                    c.style.opacity = '0.5'; // 透明度を0.5にする
+                });
+
+                // 正解・不正解の表示を制御
+                correctContainer.classList.add('hidden');
+                incorrectContainer.classList.add('hidden');
+
+                if (isValid) {
+                    correctContainer.classList.remove('hidden');
+                    correctChoiceSpan.textContent = choice.textContent;
+                } else {
+                    incorrectContainer.classList.remove('hidden');
+                    correctAnswerSpan.textContent = correctChoice.textContent; // 正解選択肢を表示
+                }
+            });
         });
     });
 });
