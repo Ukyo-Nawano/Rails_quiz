@@ -44,6 +44,7 @@ brew update
 brew upgrade ruby
 gem install bundler
 bundle install
+gem pristine --all
 
 model作成
 rails generate model Quizzes content:string image:string supplement:string
@@ -54,4 +55,6 @@ seeder作成
 rails generate seed Quizzes content:string image:string supplement:string
 rails db:seed
 
-mysql2使いたい
+rails db:reset
+
+rails new . --skip-bundle --skip-git は既存プロジェクトに導入できる

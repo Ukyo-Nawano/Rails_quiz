@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_10_22_040406) do
-  create_table "choices", force: :cascade do |t|
+  create_table "choices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "question_id"
     t.string "name"
     t.boolean "is_valid"
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_040406) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "quizzes", force: :cascade do |t|
+  create_table "quizzes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "content"
     t.string "image"
     t.string "supplement"
