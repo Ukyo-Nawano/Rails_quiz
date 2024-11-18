@@ -66,3 +66,6 @@ gem 'haml'
 gem 'rbs'
 gem 'foreman'
 gem "mysql2", "~> 0.5.6"
+gem 'omniauth-auth0'
+gem 'omniauth-rails_csrf_protection'
+gem 'dotenv-rails', groups: [:development, :test]

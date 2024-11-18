@@ -36,15 +36,14 @@ source ~/.bash_profile  # Or ~/.zshrc, depending on your shell
 rbenv install 3.2.5
 rbenv global 3.2.5
 gem install rails -v 7.2.1
-
-bin/rails s　でtailwindも起動できる
-./bin/dev でtailwindが起動し監視
-
 brew update
 brew upgrade ruby
 gem install bundler
 bundle install
 gem pristine --all
+
+bin/rails s　でtailwindも起動できる
+./bin/dev でtailwindが起動し監視
 
 model作成
 rails generate model Quizzes content:string image:string supplement:string

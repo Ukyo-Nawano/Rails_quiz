@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :name
       t.string :email
       t.string :image
+      t.string :uid, null: false, unique: true  # Auth0のUIDを保存
       t.string :password
 
       t.timestamps

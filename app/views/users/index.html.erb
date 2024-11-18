@@ -1,0 +1,4 @@
+<h1>Welcome, <%= @user.name %></h1>
+<p>User Profile: <%= @user['name'] %></p>
+
+<%= button_to "logout", "auth/logout", method: :get, data: { turbo: false } %>
