@@ -53,7 +53,7 @@ controller作成
 rails generate controller Quizzes
 seeder作成
 rails generate seed Quizzes content:string image:string supplement:string
-rails db:seed
+rails db:seed(しなくて良い)
 
 rails db:reset
 
