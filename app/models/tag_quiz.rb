@@ -1,0 +1,2 @@
+class TagQuiz < ApplicationRecord
+end
