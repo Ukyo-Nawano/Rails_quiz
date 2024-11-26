@@ -60,4 +60,7 @@ rails db:reset
 rails new . --skip-bundle --skip-git は既存プロジェクトに導入できる
 
 
-docker-compose exec app bundle exec rails db:migrate
+docker-compose exec web bash
+bundle exec rails db:create
+bundle exec rails db:migrate
+bundle exec rails s -b '0.0.0.0'
