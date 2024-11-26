@@ -58,3 +58,6 @@ rails db:seed(しなくて良い)
 rails db:reset
 
 rails new . --skip-bundle --skip-git は既存プロジェクトに導入できる
+
+
+docker-compose exec app bundle exec rails db:migrate
