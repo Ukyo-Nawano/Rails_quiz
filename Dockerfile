@@ -16,6 +16,12 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+RUN apt-get update -qq && apt-get install -y \
+    build-essential \
+    libmariadb-dev && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+
 # Set production environment
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
@@ -67,3 +73,15 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
+# 開発環境用の設定を追加
+FROM base AS development
+
+# 開発用パッケージのインストール
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git pkg-config && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# 環境変数の設定
+ENV RAILS_ENV="development" \
+    BUNDLE_PATH="/usr/local/bundle"
