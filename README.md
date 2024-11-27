@@ -64,3 +64,6 @@ docker-compose exec web bash
 bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec rails s -b '0.0.0.0'
+
+mysqlに入る
+docker-compose exec db mysql -u root -ppassword
