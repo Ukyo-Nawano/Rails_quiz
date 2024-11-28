@@ -66,3 +66,7 @@ gem 'haml'
 gem 'rbs'
 gem 'foreman'
 gem "mysql2", "~> 0.5.6"
+gem 'omniauth-auth0', '~> 3.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0' # prevents forged authentication requests
+gem 'dotenv-rails'
+gem 'rack-protection'
