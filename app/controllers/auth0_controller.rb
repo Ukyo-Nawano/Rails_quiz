@@ -11,7 +11,13 @@ class Auth0Controller < ApplicationController
 
     # ユーザー情報をセッションに保存
     # session[:userinfo] = auth_info['info']
-    session[:userinfo] = request.env['omniauth.auth']
+    # session[:userinfo] = request.env['omniauth.auth']
+    session[:userinfo] = {
+      name: auth_info['info']['name'],      # 名前
+      email: auth_info['info']['email'],
+      nickname: auth_info['info']['nickname'], # メールアドレス
+      image: auth_info['info']['image']     # プロフィール画像
+    }
 
     # Redirect to the URL you want after successful auth
     redirect_to '/quizzes'
@@ -23,6 +29,7 @@ class Auth0Controller < ApplicationController
   end
 
   def logout
+    request.session_options[:skip] = true
     reset_session
     redirect_to logout_url, allow_other_host: true
   end
@@ -38,7 +45,13 @@ class Auth0Controller < ApplicationController
       client_id: AUTH0_CONFIG['auth0_client_id']
     }
   
-    domain = AUTH0_CONFIG['auth0_domain']
+    domain = AUTH0_CONFIG[:auth0_domain]
+    
+    # https:// を除去して、ドメイン名のみを抽出
+    domain = domain.gsub(/\Ahttps?:\/\//, '') # https:// を除去
+
+    # URIを構築
+    logout_url = URI::HTTPS.build(host: domain, path: '/v2/logout', query: request_params.to_query).to_s
     Rails.logger.debug "Auth0 domain: #{domain}"
   
     raise ArgumentError, "Invalid domain" if domain.blank?
