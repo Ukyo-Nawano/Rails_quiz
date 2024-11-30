@@ -61,6 +61,7 @@ rails new . --skip-bundle --skip-git は既存プロジェクトに導入でき�
 
 
 docker-compose exec web bash
+bundle install
 bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec rails s -b '0.0.0.0'

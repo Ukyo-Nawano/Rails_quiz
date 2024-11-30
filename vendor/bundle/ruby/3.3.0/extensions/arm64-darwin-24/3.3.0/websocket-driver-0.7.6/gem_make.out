@@ -1,0 +1,18 @@
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.3.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+/opt/homebrew/opt/ruby/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.3.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20241128-10788-o3hh8o sitelibdir\=./.gem.20241128-10788-o3hh8o clean
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.3.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20241128-10788-o3hh8o sitelibdir\=./.gem.20241128-10788-o3hh8o
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.3.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20241128-10788-o3hh8o sitelibdir\=./.gem.20241128-10788-o3hh8o install
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20241128-10788-o3hh8o
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.3.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20241128-10788-o3hh8o sitelibdir\=./.gem.20241128-10788-o3hh8o clean
