@@ -7,6 +7,10 @@ class QuizzesController < ApplicationController
     end
     include Secured
 
+    def overview
+        @quiz = Quiz.find(params[:id])
+    end
+
     def show
 
     end

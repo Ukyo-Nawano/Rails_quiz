@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # root "application#hello"
   resources :quizzes do
     resources :questions, only: [:index] # クイズに紐づく質問を表示
+    member do
+      get 'overview'
+    end
   end
   resources :choices
   resources :users, only: [:index, :show]

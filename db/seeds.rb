@@ -16,11 +16,11 @@ User.create([
     { name: '横田洋二', email: 'quiz01.png', image: 'quiz01.png',  nickname:"password" },
 ])
 Quiz.create([
-    { title: 'ITクイズ', image: 'quiz01.png', user_id:1 },
-    { title: 'ITクイズ', image: 'quiz01.png', user_id:2 },
-    { title: 'ITクイズ', image: 'quiz01.png', user_id:3 },
-    { title: 'ITクイズ', image: 'quiz01.png', user_id:3 },
-    { title: 'ITクイズ', image: 'quiz01.png', user_id:4} ,
+    { title: 'ITクイズ', image: 'quiz01.png', user_id:1, description:"aaa" },
+    { title: 'ITクイズ', image: 'quiz01.png', user_id:2, description:"bbb" },
+    { title: 'ITクイズ', image: 'quiz01.png', user_id:3, description:"ccc" },
+    { title: 'ITクイズ', image: 'quiz01.png', user_id:3, description:"ddd" },
+    { title: 'ITクイズ', image: 'quiz01.png', user_id:4, description:"eee" } ,
 ])
 Question.create([
     { content: '日本のIT人材が2030年には最大どれくらい不足すると言われているでしょうか？', image: 'quiz01.png', supplement: '経済産業省 2019年3月 － IT 人材需給に関する調査', quiz_id:1, point_id:3},

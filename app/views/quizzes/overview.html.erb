@@ -1,0 +1,12 @@
+<div class="quiz-overview text-center">
+<h1 class="text-4xl font-bold mb-4"><%= @quiz.title %></h1>
+<p class="text-lg mb-6"><%= @quiz.description %></p>
+<%= image_tag @quiz.image, alt: "Quiz Image", class: "w-full max-w-md mx-auto mb-6" %>
+
+<p class="text-xl font-semibold">このクイズには <%= @quiz.questions.count %> 問の質問が含まれています。</p>
+
+<div class="mt-8">
+    <%= link_to "開始する", quiz_questions_path(@quiz), class: "bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600" %>
+    <%= link_to "戻る", quizzes_path, class: "ml-4 text-blue-500 hover:underline" %>
+</div>
+</div>
