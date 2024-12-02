@@ -12,18 +12,14 @@
 </div>
 <%= debug(@user) %>  <!-- @userの内容を表示 -->
 
+<% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.nickname %></td>
+      </tr>
+    <% end %>
 
 
-<% if session[:user] %>
-<h1>Welcome, <%= session[:user][:name] %>!</h1>
-<img src="<%= session[:user][:image] %>" alt="User Image" />
-<p>Email: <%= session[:user][:email] %></p>
-<%# <a href="/logout">Logout</a> %>
-<!-- Place a logout button anywhere on your application -->
-  <%= button_to 'Logout', 'auth/logout', method: :get, data: { turbo: false } %>
-<% else %>
-<%# <a href="/auth/auth0">Login with Auth0</a> %>
-<!-- Place a login button anywhere on your application -->
-  <%# <%= button_to 'Login', '/auth/auth0', method: :post, data: { turbo: false } %> 
-  <%= button_to 'Logout', 'auth/logout', method: :get, data: { turbo: false } %>
-<% end %>
+<%= button_to 'Logout', 'auth/logout', method: :get, data: { turbo: false } %>

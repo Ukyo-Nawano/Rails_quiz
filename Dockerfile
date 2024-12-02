@@ -74,14 +74,14 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
 
-# 開発環境用の設定を追加
+# Add development environment settings
 FROM base AS development
 
-# 開発用パッケージのインストール
+# Install development packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# 環境変数の設定
+# Set environment variables
 ENV RAILS_ENV="development" \
     BUNDLE_PATH="/usr/local/bundle"

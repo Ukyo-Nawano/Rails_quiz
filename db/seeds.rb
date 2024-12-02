@@ -9,11 +9,11 @@
 #   end
 
 User.create([
-    { name: '山田太郎', email: 'quiz01.png', image: 'quiz01.png',  password:"password" },
-    { name: '佐藤花子', email: 'quiz01.png', image: 'quiz01.png',  password:"password" },
-    { name: '鈴木祐輔', email: 'quiz01.png', image: 'quiz01.png',  password:"password" },
-    { name: '高橋めぐみ', email: 'quiz01.png', image: 'quiz01.png',  password:"password" },
-    { name: '横田洋二', email: 'quiz01.png', image: 'quiz01.png',  password:"password" },
+    { name: '山田太郎', email: 'quiz01.png', image: 'quiz01.png',  nickname:"password" },
+    { name: '佐藤花子', email: 'quiz01.png', image: 'quiz01.png',  nickname:"password" },
+    { name: '鈴木祐輔', email: 'quiz01.png', image: 'quiz01.png',  nickname:"password" },
+    { name: '高橋めぐみ', email: 'quiz01.png', image: 'quiz01.png',  nickname:"password" },
+    { name: '横田洋二', email: 'quiz01.png', image: 'quiz01.png',  nickname:"password" },
 ])
 Quiz.create([
     { title: 'ITクイズ', image: 'quiz01.png', user_id:1 },

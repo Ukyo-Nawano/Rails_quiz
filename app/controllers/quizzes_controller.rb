@@ -4,6 +4,7 @@ class QuizzesController < ApplicationController
         # session[:userinfo]の内容をログに出力
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
         @user = session[:userinfo]
+        @users = User.all
     end
     include Secured
 

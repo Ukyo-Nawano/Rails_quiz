@@ -65,6 +65,7 @@ bundle install
 bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec rails s -b '0.0.0.0'
+bundle exec rails db:seed
 
 mysqlに入る
 docker-compose exec db mysql -u root -ppassword
