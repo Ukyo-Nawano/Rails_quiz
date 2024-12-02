@@ -1,7 +1,6 @@
 class QuizzesController < ApplicationController
     def index
-        @quizzes = Quiz.includes(:choices).all
-        # session[:userinfo]の内容をログに出力
+        @quizzes = Quiz.all
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
         @user = session[:userinfo]
         @users = User.all

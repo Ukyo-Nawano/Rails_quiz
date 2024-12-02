@@ -1,3 +1,3 @@
 class Choice < ApplicationRecord
-    belongs_to :quiz, foreign_key: :question_id
+    belongs_to :question
 end

@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   # root "application#hello"
-  resources :quizzes
+  resources :quizzes do
+    resources :questions, only: [:index] # クイズに紐づく質問を表示
+  end
   resources :choices
   resources :users, only: [:index, :show]
 
