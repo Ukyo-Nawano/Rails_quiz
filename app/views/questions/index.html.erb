@@ -50,6 +50,12 @@
                                 <span class="correct_choice text-xl font-bold"></span>
                             </div>
                         </div>
+                        <% if question.supplement.present? %>
+                        <p class="flex items-center rounded-2xl bg-gray-200 w-full h-20 bg-no-repeat pl-8 font-bold text-lg bg-bottom-[50%] gap-4 mt-2">
+                            <%= image_tag "icon-note.png", class: "w-6 py-8" %>
+                            <%= question.supplement %>
+                        </p>
+                        <% end %>
                     </div>
                     <div class="incorrect hidden">
                         <p class="bg-[#e34e70] rounded-lg text-white text-3xl w-20 h-16 font-bold mb-6 flex justify-center items-center">A</p>
@@ -60,13 +66,14 @@
                                 <span class="correct_answer text-xl font-bold"></span>
                             </div>
                         </div>
+                        <% if question.supplement.present? %>
+                        <p class="flex items-center rounded-2xl bg-gray-200 w-full h-20 bg-no-repeat pl-8 font-bold text-lg bg-bottom-[50%] gap-4 mt-2">
+                            <%= image_tag "icon-note.png", class: "w-6 py-8" %>
+                            <%= question.supplement %>
+                        </p>
+                        <% end %>
                     </div>
-                    <% if question.supplement.present? %>
-                    <p class="flex items-center rounded-2xl bg-gray-200 w-full h-20 bg-no-repeat pl-8 font-bold text-lg bg-bottom-[50%] gap-4 mt-2">
-                        <%= image_tag "icon-note.png", class: "w-6 py-8" %>
-                        <%= question.supplement %>
-                    </p>
-                    <% end %>
+  
                 </div>
             <% end %>
         </div>
