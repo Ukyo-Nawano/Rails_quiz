@@ -1,4 +1,3 @@
-# ./config/auth0.yml
 development:
   auth0_domain: "https://dev-2rxatunh2paxjn2r.us.auth0.com"
   auth0_client_id: "o69PlEX35shvRjPe9kvd0nUvhSMkXXVp"

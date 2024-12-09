@@ -23,6 +23,7 @@ class Auth0Controller < ApplicationController
       nickname: auth_info['info']['nickname'],
       image: auth_info['info']['image']
     }
+    session[:user_id] = user.id
 
     # Redirect to the URL you want after successful auth
     redirect_to '/quizzes'

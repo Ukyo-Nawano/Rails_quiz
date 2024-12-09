@@ -1,0 +1,41 @@
+<h1 class="text-3xl font-bold text-center mb-6">クイズを作成する</h1>
+
+<%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto" do |form| %>
+  <% if @quiz.errors.any? %>
+    <div class="bg-red-500 text-black p-4 rounded-lg mb-6">
+      <ul>
+        <% @quiz.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-6">
+    <%= form.label :title, 'クイズのタイトル', class: "block text-lg font-semibold" %>
+    <%= form.text_field :title, class: "w-full p-3 border rounded-lg", placeholder: "クイズタイトル" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :description, 'クイズの説明', class: "block text-lg font-semibold" %>
+    <%= form.text_area :description, class: "w-full p-3 border rounded-lg", placeholder: "クイズの説明" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :image, 'サムネイル', class: "block text-lg font-semibold" %>
+    <%= form.file_field :image, class: "w-full p-3 border rounded-lg" %>
+  </div>
+
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold">質問を追加</h2>
+    <div id="questions-fields">
+    <!-- 質問追加ボタン -->
+    <button type="button" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600" id="add-question">質問を追加</button>
+  </div>
+
+  <div class="mb-6 text-center">
+    <%= form.submit "クイズを作成", class: "bg-blue-500 text-block py-2 px-6 rounded-lg hover:bg-blue-600" %>
+  </div>
+<% end %>
+
+<%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>
