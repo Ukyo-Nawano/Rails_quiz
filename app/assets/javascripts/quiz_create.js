@@ -14,17 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="choice-fields mb-2">
               <input type="text" name="quiz[questions_attributes][${questionIndex}][choices_attributes][0][name]" placeholder="選択肢1" class="w-full p-3 border rounded-lg">
               <input type="hidden" name="quiz[questions_attributes][${questionIndex}][choices_attributes][0][is_valid]" value="false">
-              <input type="radio" name="quiz[questions_attributes][${questionIndex}][is_valid]" value="0" class="ml-2"> 正解
+              <input type="radio" name="quiz[questions_attributes][${questionIndex}][correct_choice]" value="0" class="ml-2"> 正解
             </div>
             <div class="choice-fields mb-2">
               <input type="text" name="quiz[questions_attributes][${questionIndex}][choices_attributes][1][name]" placeholder="選択肢2" class="w-full p-3 border rounded-lg">
               <input type="hidden" name="quiz[questions_attributes][${questionIndex}][choices_attributes][1][is_valid]" value="false">
-              <input type="radio" name="quiz[questions_attributes][${questionIndex}][is_valid]" value="1" class="ml-2"> 正解
+              <input type="radio" name="quiz[questions_attributes][${questionIndex}][correct_choice]" value="1" class="ml-2"> 正解
             </div>
             <div class="choice-fields mb-2">
               <input type="text" name="quiz[questions_attributes][${questionIndex}][choices_attributes][2][name]" placeholder="選択肢3" class="w-full p-3 border rounded-lg">
               <input type="hidden" name="quiz[questions_attributes][${questionIndex}][choices_attributes][2][is_valid]" value="false">
-              <input type="radio" name="quiz[questions_attributes][${questionIndex}][is_valid]" value="2" class="ml-2"> 正解
+              <input type="radio" name="quiz[questions_attributes][${questionIndex}][correct_choice]" value="2" class="ml-2"> 正解
             </div>
           </div>
           <textarea name="quiz[questions_attributes][${questionIndex}][supplement]" placeholder="解説を入力" class="w-full p-3 border rounded-lg mt-4" rows="3"></textarea>
@@ -41,6 +41,30 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.classList.contains("remove-question")) {
             const questionField = event.target.closest(".question-fields");
             questionField.remove();
+        }
+    });
+
+    // 正解のラジオボタンが選択されたとき、選択肢のis_validをtrueに設定
+    document.getElementById("questions-fields").addEventListener("change", function (event) {
+        if (event.target.type === "radio" && event.target.name.includes("correct_choice")) {
+            const questionField = event.target.closest(".question-fields");
+            const allChoiceRadios = questionField.querySelectorAll("input[type='radio']");
+
+            // すべての選択肢のis_validをfalseに設定
+            allChoiceRadios.forEach(radio => {
+                const hiddenInput = radio.closest('.choice-fields').querySelector('input[type="hidden"]');
+                if (hiddenInput) {
+                    hiddenInput.value = "false";
+                }
+            });
+
+            // 正解に選ばれた選択肢のis_validをtrueに設定
+            const selectedChoiceIndex = event.target.value;
+            const correctChoiceField = questionField.querySelectorAll('.choice-fields')[selectedChoiceIndex];
+            const hiddenInput = correctChoiceField.querySelector('input[type="hidden"]');
+            if (hiddenInput) {
+                hiddenInput.value = "true";
+            }
         }
     });
 });
