@@ -3,3 +3,4 @@
 //= link_tree ../builds
 //= link application.css
 //= link quiz.js
+//= link quiz_create.js

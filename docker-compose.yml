@@ -2,21 +2,21 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: rails_quiz_development
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
     networks:
-      - app_network  # ここを追加
+      - app_network
 
   web:
     build: .
-    command: bash -c "until mysql -h db -u root -ppassword -e 'select 1'; do echo 'Waiting for db...'; sleep 2; done && bundle exec rails s -b '0.0.0.0'"
+    command: bash -c "until mysql -h ${DATABASE_HOST} -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e 'select 1'; do echo 'Waiting for db...'; sleep 2; done && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - .:/rails
       - bundle_cache:/usr/local/bundle
@@ -25,16 +25,16 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_HOST: db
-      DATABASE_PORT: 3306
-      RAILS_ENV: development
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      RAILS_ENV: ${RAILS_ENV}
     networks:
-      - app_network  # ここを追加
+      - app_network
 
 volumes:
   mysql_data:
   bundle_cache:
 
 networks:
-  app_network:  # ここを追加
+  app_network:
     driver: bridge

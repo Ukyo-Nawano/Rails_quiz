@@ -12,8 +12,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   # root "application#hello"
-  resources :quizzes
+  resources :quizzes do
+    resources :questions, only: [:index] # クイズに紐づく質問を表示
+    member do
+      get 'overview'
+    end
+  end
   resources :choices
+  resources :users, only: [:index, :show]
 
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'
