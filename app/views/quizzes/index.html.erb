@@ -16,6 +16,7 @@
         <% end %>
       </p>
     <% end %>
+    <%= link_to '削除', quiz_path(quiz), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
     </div>
   <% end %>
 </div>

@@ -1,0 +1,88 @@
+<h1 class="text-3xl font-bold text-center mb-6">クイズを編集する</h1>
+
+<%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto" do |form| %>
+<% if @quiz.errors.any? %>
+    <div class="bg-red-500 text-black p-4 rounded-lg mb-6">
+    <ul>
+        <% @quiz.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+    </div>
+<% end %>
+
+<div class="mb-6">
+    <%= form.label :title, 'クイズのタイトル', class: "block text-lg font-semibold" %>
+    <%= form.text_field :title, class: "w-full p-3 border rounded-lg", placeholder: "クイズタイトル" %>
+</div>
+
+<div class="mb-6">
+    <%= form.label :description, 'クイズの説明', class: "block text-lg font-semibold" %>
+    <%= form.text_area :description, class: "w-full p-3 border rounded-lg", placeholder: "クイズの説明" %>
+</div>
+
+<div class="mb-6">
+    <%= form.label :image, 'サムネイル', class: "block text-lg font-semibold" %>
+    <%= form.file_field :image, class: "w-full p-3 border rounded-lg" %>
+</div>
+
+<div class="mb-6">
+    <h2 class="text-lg font-semibold">質問を追加</h2>
+    <div id="questions-fields">
+    <% @quiz.questions.each_with_index do |question, index| %>
+        <div class="question-fields mb-4">
+        <div class="mb-4">
+            <%= form.hidden_field "questions_attributes[#{index}][id]", value: question.id %>
+            <%= form.text_field "questions_attributes[#{index}][content]", value: question.content, class: "w-full p-3 border rounded-lg", placeholder: "質問内容" %>
+            <div class="choices-fields">
+            <% question.choices.each_with_index do |choice, choice_index| %>
+                <div class="choice-fields mb-2">
+                <%= form.text_field "questions_attributes[#{index}][choices_attributes][#{choice_index}][name]", value: choice.name, class: "w-full p-3 border rounded-lg", placeholder: "選択肢#{choice_index + 1}" %>
+                <%= form.hidden_field "questions_attributes[#{index}][choices_attributes][#{choice_index}][is_valid]", value: choice.is_valid %>
+                <%= form.radio_button "questions_attributes[#{index}][correct_choice]", choice_index, class: "ml-2" %> 正解
+                <%= form.hidden_field "questions_attributes[#{index}][choices_attributes][#{choice_index}][_destroy]", value: "false" %>
+                </div>
+            <% end %>
+            </div>
+            <%= form.text_area "questions_attributes[#{index}][supplement]", value: question.supplement, class: "w-full p-3 border rounded-lg mt-4", rows: 3, placeholder: "解説を入力" %>
+            <%= form.hidden_field "questions_attributes[#{index}][_destroy]", value: "false" %>
+            <button type="button" class="remove-question text-red-500 hover:text-red-700 mt-2" data-question-id="<%= question.id %>">削除</button>
+        </div>
+        </div>
+    <% end %>
+    </div>
+    <button type="button" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600" id="add-question">質問を追加</button>
+</div>
+
+<div class="mb-6 text-center">
+    <%= form.submit "クイズを更新", class: "bg-blue-500 text-block py-2 px-6 rounded-lg hover:bg-blue-600" %>
+</div>
+<% end %>
+
+<%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.remove-question').forEach(button => {
+        button.addEventListener('click', function () {
+            const questionId = this.dataset.questionId;
+            const quizId = "<%= @quiz.id %>";
+            if (confirm("本当に削除しますか？")) {
+                fetch(`/quizzes/${quizId}/questions/${questionId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // 成功した場合、設問をDOMから削除
+                        this.closest('.question-fields').remove();
+                    } else {
+                        alert('削除に失敗しました。');
+                    }
+                });
+            }
+        });
+    });
+});
+</script>

@@ -9,6 +9,7 @@ class QuizzesController < ApplicationController
 
     def overview
         @quiz = Quiz.find(params[:id])
+        @is_owner = @quiz.user_id == current_user.id
     end
 
     def show
@@ -43,11 +44,33 @@ class QuizzesController < ApplicationController
 
 
     def edit
+        @quiz = Quiz.find(params[:id])
     end
-  
+
     def update
+        @quiz = Quiz.find(params[:id])
+        # デバッグ用: 送信されたパラメータをログに出力
+        Rails.logger.debug("Received params: #{params.inspect}")
+        if @quiz.update(quiz_params)
+            redirect_to quiz_path(@quiz), notice: 'クイズが更新されました！'
+        else
+            render :edit
+        end
     end
-  
+
     def destroy
+        @quiz = Quiz.find(params[:id])
+        
+        # 論理削除の処理
+        @quiz.questions.each do |question|
+            question.choices.each(&:destroy) # 選択肢を論理削除
+            question.destroy # 質問を論理削除
+        end
+
+        if @quiz.destroy
+            redirect_to quizzes_path, notice: 'クイズが削除されました！'
+        else
+            redirect_to quizzes_path, alert: 'クイズの削除に失敗しました。'
+        end
     end
 end
