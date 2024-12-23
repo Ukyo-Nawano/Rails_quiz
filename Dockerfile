@@ -14,13 +14,21 @@ WORKDIR /rails
 # Install base packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
+    apt-get install --fix-missing && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-RUN apt-get update -qq && apt-get install -y \
-    build-essential \
-    libmariadb-dev && \
+# Check if /etc/apt/sources.list exists before attempting to modify it
+RUN if [ -f /etc/apt/sources.list ]; then \
+        sed -i 's|http://deb.debian.org/debian|http://ftp.jp.debian.org/debian|g' /etc/apt/sources.list; \
+    fi && \
+    apt-get update -qq && \
+    apt-get install -y build-essential libmariadb-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Install Node.js and npm
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y nodejs npm && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
 ENV RAILS_ENV="production" \
