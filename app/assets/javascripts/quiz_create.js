@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         newField.innerHTML = `
         <div class="mb-4">
+          <input type="hidden" name="quiz[questions_attributes][${questionIndex}][id]" value="">
           <input type="text" name="quiz[questions_attributes][${questionIndex}][content]" placeholder="質問内容" class="w-full p-3 border rounded-lg">
           <div class="choices-fields">
             <div class="choice-fields mb-2">
@@ -28,20 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
           </div>
           <textarea name="quiz[questions_attributes][${questionIndex}][supplement]" placeholder="解説を入力" class="w-full p-3 border rounded-lg mt-4" rows="3"></textarea>
+          <input type="hidden" name="quiz[questions_attributes][${questionIndex}][_destroy]" value="false">
           <button type="button" class="remove-question text-red-500 hover:text-red-700 mt-2">削除</button>
         </div>
       `;
 
         container.appendChild(newField);
         questionIndex++;
-    });
-
-    // 質問の削除
-    document.getElementById("questions-fields").addEventListener("click", function (event) {
-        if (event.target.classList.contains("remove-question")) {
-            const questionField = event.target.closest(".question-fields");
-            questionField.remove();
-        }
     });
 
     // 正解のラジオボタンが選択されたとき、選択肢のis_validをtrueに設定

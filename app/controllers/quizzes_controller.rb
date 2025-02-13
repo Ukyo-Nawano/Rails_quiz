@@ -9,6 +9,7 @@ class QuizzesController < ApplicationController
 
     def overview
         @quiz = Quiz.find(params[:id])
+        @is_owner = @quiz.user_id == current_user.id
     end
 
     def show
@@ -32,22 +33,44 @@ class QuizzesController < ApplicationController
     end
 
     def quiz_params
-        params.require(:quiz).permit(
-          :title, :description, :image,
-          questions_attributes: [
-            :content, :supplement, :_destroy,
-            choices_attributes: [:name, :is_valid, :_destroy]
-          ]
-        )
+    params.require(:quiz).permit(
+    :title,
+    :description,
+    :image,
+    questions_attributes: [
+        :id,
+        :content,
+        :supplement,
+        :_destroy,
+        choices_attributes: [
+        :id,
+        :name,
+        :is_valid,
+        :_destroy
+        ]
+    ]
+    )
     end
 
 
     def edit
+        @quiz = Quiz.find(params[:id])
     end
-  
+
     def update
+        @quiz = Quiz.find(params[:id])
+        # デバッグ用: 送信されたパラメータをログに出力
+        Rails.logger.debug("Received params: #{params.inspect}")
+        if @quiz.update(quiz_params)
+            redirect_to quizzes_path, notice: 'クイズが更新されました！'
+        else
+            render :edit
+        end
     end
-  
+
     def destroy
+        @quiz = Quiz.find(params[:id])
+        @quiz.update(deleted_at: Time.current)
+        redirect_to quizzes_path, notice: 'クイズが削除されました！'
     end
 end
