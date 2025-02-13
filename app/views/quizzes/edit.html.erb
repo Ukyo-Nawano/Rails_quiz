@@ -3,11 +3,11 @@
 <%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto" do |form| %>
 <% if @quiz.errors.any? %>
     <div class="bg-red-500 text-black p-4 rounded-lg mb-6">
-    <ul>
-        <% @quiz.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-    </ul>
+        <ul>
+            <% @quiz.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
     </div>
 <% end %>
 
@@ -27,29 +27,31 @@
 </div>
 
 <div class="mb-6">
-    <h2 class="text-lg font-semibold">質問を追加</h2>
+    <h2 class="text-lg font-semibold">設問</h2>
     <div id="questions-fields">
-    <% @quiz.questions.each_with_index do |question, index| %>
-        <div class="question-fields mb-4">
-        <div class="mb-4">
-            <%= form.hidden_field "questions_attributes[#{index}][id]", value: question.id %>
-            <%= form.text_field "questions_attributes[#{index}][content]", value: question.content, class: "w-full p-3 border rounded-lg", placeholder: "質問内容" %>
-            <div class="choices-fields">
-            <% question.choices.each_with_index do |choice, choice_index| %>
-                <div class="choice-fields mb-2">
-                <%= form.text_field "questions_attributes[#{index}][choices_attributes][#{choice_index}][name]", value: choice.name, class: "w-full p-3 border rounded-lg", placeholder: "選択肢#{choice_index + 1}" %>
-                <%= form.hidden_field "questions_attributes[#{index}][choices_attributes][#{choice_index}][is_valid]", value: choice.is_valid %>
-                <%= form.radio_button "questions_attributes[#{index}][correct_choice]", choice_index, class: "ml-2" %> 正解
-                <%= form.hidden_field "questions_attributes[#{index}][choices_attributes][#{choice_index}][_destroy]", value: "false" %>
+        <%= form.fields_for :questions do |question_form| %>
+            <div class="question-fields mb-4">
+                <%= question_form.hidden_field :id, value: question_form.object.id %>
+                <%= question_form.text_field :content, value: question_form.object.content, class: "w-full p-3 border rounded-lg", placeholder: "質問内容" %>
+
+                <div class="choices-fields">
+                    <% question_form.object.choices.each_with_index do |choice, choice_index| %>
+                        <div class="choice-fields mb-2">
+                            <%= question_form.fields_for :choices, choice do |choice_form| %>
+                                <%= choice_form.hidden_field :id, value: choice.id %>
+                                <%= choice_form.text_field :name, value: choice.name, class: "w-full p-3 border rounded-lg", placeholder: "選択肢#{choice_index + 1}" %>
+                                <%= choice_form.radio_button "questions_attributes[#{question_form.index}][correct_choice]", choice.id, class: "ml-2 correct-choice", checked: choice.is_valid %> 正解
+                                <input type="hidden" name="quiz[questions_attributes][#{question_form.index}][choices_attributes][#{choice_index}][is_valid]" value="false">
+                            <% end %>
+                        </div>
+                    <% end %>
                 </div>
-            <% end %>
+
+                <%= question_form.text_area :supplement, value: question_form.object.supplement, class: "w-full p-3 border rounded-lg mt-4", rows: 3, placeholder: "解説を入力" %>
+                <input type="hidden" name="quiz[questions_attributes][#{question_form.index}][_destroy]" value="false">
+                <button type="button" class="remove-question text-red-500 hover:text-red-700 mt-2">削除</button>
             </div>
-            <%= form.text_area "questions_attributes[#{index}][supplement]", value: question.supplement, class: "w-full p-3 border rounded-lg mt-4", rows: 3, placeholder: "解説を入力" %>
-            <%= form.hidden_field "questions_attributes[#{index}][_destroy]", value: "false" %>
-            <button type="button" class="remove-question text-red-500 hover:text-red-700 mt-2" data-question-id="<%= question.id %>">削除</button>
-        </div>
-        </div>
-    <% end %>
+        <% end %>
     </div>
     <button type="button" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600" id="add-question">質問を追加</button>
 </div>
@@ -59,6 +61,7 @@
 </div>
 <% end %>
 
+<%= link_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
 <%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>
 
 <script>
@@ -81,6 +84,31 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert('削除に失敗しました。');
                     }
                 });
+            }
+        });
+    });
+
+    document.querySelectorAll('.correct-choice').forEach(radio => {
+        radio.addEventListener('change', function () {
+            const questionIndex = this.closest('.question-fields').querySelector('input[type="hidden"]').value;
+
+            // すべての選択肢のis_validをfalseに設定
+            const allChoiceRadios = document.querySelectorAll(`input[name="questions_attributes[${questionIndex}][correct_choice]"]`);
+            allChoiceRadios.forEach(radio => {
+                const hiddenInput = radio.closest('.choice-fields').querySelector('input[type="hidden"]');
+                if (hiddenInput) {
+                    hiddenInput.value = "false";
+                }
+            });
+
+            // 正解に選ばれた選択肢のis_validをtrueに設定
+            const selectedChoiceId = this.value;
+            const correctChoiceField = document.querySelector(`input[value="${selectedChoiceId}"]`);
+            if (correctChoiceField) {
+                const hiddenInput = correctChoiceField.closest('.choice-fields').querySelector('input[type="hidden"]');
+                if (hiddenInput) {
+                    hiddenInput.value = "true";
+                }
             }
         });
     });

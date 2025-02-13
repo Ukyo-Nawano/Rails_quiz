@@ -33,13 +33,23 @@ class QuizzesController < ApplicationController
     end
 
     def quiz_params
-        params.require(:quiz).permit(
-          :title, :description, :image,
-          questions_attributes: [
-            :content, :supplement, :_destroy,
-            choices_attributes: [:name, :is_valid, :_destroy]
-          ]
-        )
+    params.require(:quiz).permit(
+    :title,
+    :description,
+    :image,
+    questions_attributes: [
+        :id,
+        :content,
+        :supplement,
+        :_destroy,
+        choices_attributes: [
+        :id,
+        :name,
+        :is_valid,
+        :_destroy
+        ]
+    ]
+    )
     end
 
 
@@ -52,7 +62,7 @@ class QuizzesController < ApplicationController
         # デバッグ用: 送信されたパラメータをログに出力
         Rails.logger.debug("Received params: #{params.inspect}")
         if @quiz.update(quiz_params)
-            redirect_to quiz_path(@quiz), notice: 'クイズが更新されました！'
+            redirect_to quizzes_path, notice: 'クイズが更新されました！'
         else
             render :edit
         end
@@ -60,17 +70,7 @@ class QuizzesController < ApplicationController
 
     def destroy
         @quiz = Quiz.find(params[:id])
-        
-        # 論理削除の処理
-        @quiz.questions.each do |question|
-            question.choices.each(&:destroy) # 選択肢を論理削除
-            question.destroy # 質問を論理削除
-        end
-
-        if @quiz.destroy
-            redirect_to quizzes_path, notice: 'クイズが削除されました！'
-        else
-            redirect_to quizzes_path, alert: 'クイズの削除に失敗しました。'
-        end
+        @quiz.update(deleted_at: Time.current)
+        redirect_to quizzes_path, notice: 'クイズが削除されました！'
     end
 end

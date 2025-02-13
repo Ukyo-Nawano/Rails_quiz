@@ -1,5 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './app/views/**/*.{html,erb,haml,slim}',
@@ -49,6 +48,13 @@ module.exports = {
         yellow:{
             100:"#F7B32B",
         },
+      },
+      spacing: {
+        '12': '3rem',
+        '13': '3.25rem',
+        '15': '3.75rem',
+        '128': '32rem',
+        '144': '36rem',
       },
     },
   },

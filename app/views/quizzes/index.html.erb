@@ -9,14 +9,13 @@
         <%= image_tag 'quiz02.png', alt: 'default image', class: 'w-1/5' %> <!-- デフォルト画像 -->
       <% end %>
       <p><%= quiz.title %></p>
-      <p class="text-green-75 p-12">作成者: <%= quiz.user.name %></p>
+      <p class="text-green-75 pt-12">作成者: <%= quiz.user.name %></p>
       <p>タグ:
         <% quiz.tags.each do |tag| %>
           <span class="tag"><%= tag.tag %></span>
         <% end %>
       </p>
     <% end %>
-    <%= link_to '削除', quiz_path(quiz), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
     </div>
   <% end %>
 </div>

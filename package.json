@@ -1,8 +1,13 @@
 {
   "scripts": {
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --watch"
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/style.css -o ./app/assets/builds/application.css --watch"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.16"
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15"
   }
 }

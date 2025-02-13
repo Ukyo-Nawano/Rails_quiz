@@ -69,3 +69,6 @@ bundle exec rails db:seed
 
 mysqlに入る
 docker-compose exec db mysql -u root -ppassword
+
+npx tailwindcss -i ./app/assets/stylesheets/style.css -o ./app/assets/stylesheets/output.css --watch
+で監視 or npm run build:css

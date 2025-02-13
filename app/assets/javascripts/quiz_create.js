@@ -38,33 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
         questionIndex++;
     });
 
-    // 質問の削除
-    document.getElementById("questions-fields").addEventListener("click", function (event) {
-
-            const questionField = event.target.closest(".question-fields");
-            
-            // 確認のアラートを表示
- 
-                const hiddenDestroyField = questionField.querySelector('input[name*="_destroy"]');
-                console.log("aaa", hiddenDestroyField);
-                if (hiddenDestroyField) {
-                    hiddenDestroyField.value = "true"; // 論理削除フラグをtrueに設定
-                }
-                
-                // 各選択肢の削除フラグも設定
-                const choiceFields = questionField.querySelectorAll('.choice-fields');
-                choiceFields.forEach(choiceField => {
-                    const hiddenChoiceDestroyField = choiceField.querySelector('input[name*="_destroy"]');
-                    if (hiddenChoiceDestroyField) {
-                        hiddenChoiceDestroyField.value = "true"; // 論理削除フラグをtrueに設定
-                    }
-                });
-
-              questionField.remove(); // DOMから削除
-
-      }
-    );
-
     // 正解のラジオボタンが選択されたとき、選択肢のis_validをtrueに設定
     document.getElementById("questions-fields").addEventListener("change", function (event) {
         if (event.target.type === "radio" && event.target.name.includes("correct_choice")) {
