@@ -1,8 +1,9 @@
 class QuizzesController < ApplicationController
     def index
         @quizzes = Quiz.all
+        @user = current_user # 現在のユーザーを取得
+        @current_score = @user.total_points if @user # ユーザーが存在する場合にポイントを計算
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
-        @user = session[:userinfo]
         @users = User.all
     end
     include Secured

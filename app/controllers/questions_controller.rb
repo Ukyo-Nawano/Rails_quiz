@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
         @quiz = Quiz.find(params[:quiz_id])
         @questions = @quiz.questions.includes(:choices)
         @user = current_user
-        @current_score = @user.current_score if @user
+        @current_score = @user.total_points if @user
     end
 
     def destroy

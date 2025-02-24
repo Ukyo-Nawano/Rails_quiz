@@ -1,9 +1,9 @@
 class User < ApplicationRecord
     has_many :quizzes
 
-    def current_score
+    def total_points
         UserQuestion.joins(question: :point)
-                    .where(user_id: id)
-                    .sum('points.point') # pointsテーブルのvalueカラムを合計
+                    .where(user_id: id, result: true, is_first: true)
+                    .sum('points.point') # pointsテーブルのpointカラムを合計
     end
 end
