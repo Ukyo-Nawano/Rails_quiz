@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   resources :choices
   resources :users, only: [:index, :show]
+  resources :user_questions, only: [:create]
 
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'

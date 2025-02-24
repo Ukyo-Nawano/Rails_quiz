@@ -2,6 +2,8 @@ class QuestionsController < ApplicationController
     def index
         @quiz = Quiz.find(params[:quiz_id])
         @questions = @quiz.questions.includes(:choices)
+        @user = current_user
+        @current_score = @user.current_score if @user
     end
 
     def destroy

@@ -27,10 +27,12 @@
 <%# <%= JSON.pretty_generate(@user) %>
 
 <div>
+  <input type="hidden" id="current-user-id" value="<%= @user['id'] %>"> <!-- ユーザーIDを隠しフィールドに追加 -->
   <p>User Name: <%= @user["name"] %></p>
   <p>User Email: <%= @user["email"] %></p>
   <p>User Nickname: <%= @user["nickname"] %></p>
   <p>User Image: <%= @user["image"] %></p>
+  <p>現在の得点: <span id="current-score"><%= @current_score %></span></p>
 </div>
 
 <p className='text-red-800'>じじ</p>
