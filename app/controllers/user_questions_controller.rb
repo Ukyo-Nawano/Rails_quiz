@@ -2,6 +2,13 @@ class UserQuestionsController < ApplicationController
   def create
     user_question = UserQuestion.new(user_question_params)
 
+    # ユーザーがすでに質問に回答したかどうかを確認
+    if UserQuestion.where(user_id: user_question.user_id, question_id: user_question.question_id).exists?
+      user_question.is_first = false # 2回目以降はis_firstをfalseに設定
+    else
+      user_question.is_first = true # 1回目はis_firstをtrueに設定
+    end
+
     if user_question.save
       render json: { status: 'success', user_question: user_question }, status: :created
     else
