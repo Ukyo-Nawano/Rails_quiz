@@ -29,6 +29,11 @@ class QuestionsController < ApplicationController
         render 'answer'
     end
 
+    def confirm_destroy
+        @question = Question.find(params[:id])
+        @quiz = @question.quiz # 削除する設問が属するクイズを取得
+    end
+
     def destroy
         @question = Question.find(params[:id])
         quiz = @question.quiz # 削除する設問が属するクイズを取得

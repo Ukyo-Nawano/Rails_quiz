@@ -20,8 +20,12 @@ Rails.application.routes.draw do
       member do
         get 'answer'
         get 'result'
+        get 'confirm_destroy'
         delete :destroy # destroyアクションのルーティング
       end
+    end
+    member do
+      get 'confirm_destroy' # クイズ削除確認ページ
     end
   end
   resources :choices

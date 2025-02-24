@@ -34,26 +34,6 @@ class QuizzesController < ApplicationController
         end
     end
 
-    def quiz_params
-    params.require(:quiz).permit(
-    :title,
-    :description,
-    :image,
-    questions_attributes: [
-        :id,
-        :content,
-        :supplement,
-        :_destroy,
-        choices_attributes: [
-        :id,
-        :name,
-        :is_valid,
-        :_destroy
-        ]
-    ]
-    )
-    end
-
 
     def edit
         @quiz = Quiz.find(params[:id])
@@ -80,6 +60,30 @@ class QuizzesController < ApplicationController
             Rails.logger.debug("Failed to delete quiz")
             redirect_to quizzes_path, alert: 'クイズの削除に失敗しました。'
         end
+    end
+
+    def confirm_destroy
+        @quiz = Quiz.find(params[:id])
+    end
+
+    def quiz_params
+        params.require(:quiz).permit(
+        :title,
+        :description,
+        :image,
+        questions_attributes: [
+            :id,
+            :content,
+            :supplement,
+            :_destroy,
+            choices_attributes: [
+            :id,
+            :name,
+            :is_valid,
+            :_destroy
+            ]
+        ]
+        )
     end
 
 end
