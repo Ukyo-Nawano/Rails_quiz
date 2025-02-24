@@ -49,7 +49,12 @@
 
                 <%= question_form.text_area :supplement, value: question_form.object.supplement, class: "w-full p-3 border rounded-lg mt-4", rows: 3, placeholder: "解説を入力" %>
                 <input type="hidden" name="quiz[questions_attributes][#{question_form.index}][_destroy]" value="false">
-                <button type="button" class="remove-question text-red-500 hover:text-red-700 mt-2">削除</button>
+
+                <% if @quiz.questions.count == 1 %>
+                    <%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
+                <% else %>
+                    <%= button_to "設問を削除", [@quiz, question_form.object], method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:text-red-700 mt-2" %>
+                <% end %>
             </div>
         <% end %>
     </div>
@@ -61,56 +66,4 @@
 </div>
 <% end %>
 
-<%= link_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
 <%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.remove-question').forEach(button => {
-        button.addEventListener('click', function () {
-            const questionId = this.dataset.questionId;
-            const quizId = "<%= @quiz.id %>";
-            if (confirm("本当に削除しますか？")) {
-                fetch(`/quizzes/${quizId}/questions/${questionId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        // 成功した場合、設問をDOMから削除
-                        this.closest('.question-fields').remove();
-                    } else {
-                        alert('削除に失敗しました。');
-                    }
-                });
-            }
-        });
-    });
-
-    document.querySelectorAll('.correct-choice').forEach(radio => {
-        radio.addEventListener('change', function () {
-            const questionIndex = this.closest('.question-fields').querySelector('input[type="hidden"]').value;
-
-            // すべての選択肢のis_validをfalseに設定
-            const allChoiceRadios = document.querySelectorAll(`input[name="questions_attributes[${questionIndex}][correct_choice]"]`);
-            allChoiceRadios.forEach(radio => {
-                const hiddenInput = radio.closest('.choice-fields').querySelector('input[type="hidden"]');
-                if (hiddenInput) {
-                    hiddenInput.value = "false";
-                }
-            });
-
-            // 正解に選ばれた選択肢のis_validをtrueに設定
-            const selectedChoiceId = this.value;
-            const correctChoiceField = document.querySelector(`input[value="${selectedChoiceId}"]`);
-            if (correctChoiceField) {
-                const hiddenInput = correctChoiceField.closest('.choice-fields').querySelector('input[type="hidden"]');
-                if (hiddenInput) {
-                    hiddenInput.value = "true";
-                }
-            }
-        });
-    });
-});
-</script>

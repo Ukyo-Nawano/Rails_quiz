@@ -30,13 +30,19 @@ class QuestionsController < ApplicationController
     end
 
     def destroy
-        @quiz = Quiz.find(params[:quiz_id])
-        @question = @quiz.questions.find(params[:id])
+        @question = Question.find(params[:id])
+        quiz = @question.quiz # 削除する設問が属するクイズを取得
 
         if @question.destroy
-            render json: { message: '設問が削除されました。' }, status: :ok
+            # 削除後にクイズ内の設問が残っているか確認
+            if quiz.questions.count == 0
+                quiz.destroy # 設問が残っていなければクイズを削除
+                redirect_to quizzes_path, notice: 'クイズが削除されました！'
+            else
+                redirect_to quizzes_path, notice: '質問が削除されました！'
+            end
         else
-            render json: { error: '設問の削除に失敗しました。' }, status: :unprocessable_entity
+            redirect_to quizzes_path, alert: '質問の削除に失敗しました。'
         end
     end
 

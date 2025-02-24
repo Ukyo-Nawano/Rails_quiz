@@ -71,8 +71,15 @@ class QuizzesController < ApplicationController
     end
 
     def destroy
-        @quiz = Quiz.find(params[:id])
-        @quiz.update(deleted_at: Time.current)
-        redirect_to quizzes_path, notice: 'クイズが削除されました！'
+        @quiz = Quiz.includes(questions: :choices).find(params[:id]) # 関連する設問と選択肢を含めて取得
+        Rails.logger.debug("Deleting quiz: #{@quiz.inspect}")
+        if @quiz.destroy
+            Rails.logger.debug("Quiz deleted successfully")
+            redirect_to quizzes_path, notice: 'クイズが削除されました！'
+        else
+            Rails.logger.debug("Failed to delete quiz")
+            redirect_to quizzes_path, alert: 'クイズの削除に失敗しました。'
+        end
     end
+
 end
