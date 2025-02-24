@@ -10,7 +10,8 @@ class QuizzesController < ApplicationController
 
     def overview
         @quiz = Quiz.find(params[:id])
-        @is_owner = @quiz.user_id == current_user.id
+        @first_question = @quiz.questions.first # 最初の設問を取得
+        @is_owner = current_user == @quiz.user # クイズのオーナーかどうかを判定
     end
 
     def show

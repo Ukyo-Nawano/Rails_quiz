@@ -8,8 +8,12 @@
 <div class="mt-8">
     <% if @is_owner %>
         <%= link_to "編集する", edit_quiz_path(@quiz), class: "ml-4 text-blue-500 hover:underline" %>
-    <% else%>
-        <%= link_to "開始する", quiz_questions_path(@quiz), class: "bg-blue-500 text-black py-2 px-4 rounded-lg hover:bg-blue-600" %>
+    <% else %>
+        <% if @first_question %>
+            <%= link_to "開始する", quiz_question_path(@quiz, @first_question), class: "bg-blue-500 text-black py-2 px-4 rounded-lg hover:bg-blue-600" %>
+        <% else %>
+            <p>このクイズには設問がありません。</p>
+        <% end %>
     <% end %>
     <%= link_to "戻る", quizzes_path, class: "ml-4 text-blue-500 hover:underline" %>
 </div>

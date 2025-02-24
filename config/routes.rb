@@ -13,10 +13,15 @@ Rails.application.routes.draw do
   # root "posts#index"
   # root "application#hello"
   resources :quizzes do
-    resources :questions, only: [:index, :edit, :update, :destroy] # クイズに紐づく質問を表示
     member do
       get 'overview'
-      delete :destroy # destroyアクションのルーティング
+    end
+    resources :questions, only: [:index, :create, :edit, :update, :destroy, :show] do
+      member do
+        get 'answer'
+        get 'result'
+        delete :destroy # destroyアクションのルーティング
+      end
     end
   end
   resources :choices

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解説</title>
+</head>
+<body>
+    <h1>質問: <%= @question.content %></h1>
+    <p>あなたの回答: <%= @user_answer == true ? '正解' : '不正解' %></p>
+    <% if @user_answer == true %>
+        <p>おめでとうございます！正解です。</p>
+    <% else %>
+        <p>残念ながら不正解です。もう一度挑戦してください。</p>
+    <% end %>
+    <h2>解説</h2>
+    <p><%= @explanation %></p>
+
+    <% next_question = @question.quiz.questions.where("id > ?", @question.id).first %>
+    <% if next_question %>
+        <%= link_to '次の質問へ', quiz_question_path(@question.quiz_id, next_question.id), class: 'btn btn-primary' %>
+    <% else %>
+        <p>これが最後の質問です。</p>
+        <%= link_to '結果を確認する', result_quiz_question_path(@question.quiz_id), class: 'btn btn-primary' %>
+    <% end %>
+</body>
+</html>

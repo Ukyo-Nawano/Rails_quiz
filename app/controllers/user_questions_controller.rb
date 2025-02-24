@@ -1,19 +1,19 @@
 class UserQuestionsController < ApplicationController
   def create
-    user_question = UserQuestion.new(user_question_params)
+    @user_question = UserQuestion.new(user_question_params)
 
     # ユーザーがすでに質問に回答したかどうかを確認
-    if UserQuestion.where(user_id: user_question.user_id, question_id: user_question.question_id).exists?
-      user_question.is_first = false # 2回目以降はis_firstをfalseに設定
+    if UserQuestion.where(user_id: @user_question.user_id, question_id: @user_question.question_id).exists?
+      @user_question.is_first = false # 2回目以降はis_firstをfalseに設定
     else
-      user_question.is_first = true # 1回目はis_firstをtrueに設定
+      @user_question.is_first = true # 1回目はis_firstをtrueに設定
     end
 
-    if user_question.save
-      render json: { status: 'success', user_question: user_question }, status: :created
+    if @user_question.save
+      redirect_to answer_quiz_question_path(@user_question.question.quiz_id, @user_question.question.id), notice: '回答が保存されました。'
     else
-      Rails.logger.error(user_question.errors.full_messages) # エラーメッセージをログに出力
-      render json: { status: 'error', errors: user_question.errors.full_messages }, status: :unprocessable_entity
+      Rails.logger.error(@user_question.errors.full_messages) # エラーメッセージをログに出力
+      render :new
     end
   end
 
