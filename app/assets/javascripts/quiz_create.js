@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="radio" name="quiz[questions_attributes][${questionIndex}][correct_choice]" value="2" class="ml-2"> 正解
                 </div>
             </div>
-            <textarea name="quiz[questions_attributes][${questionIndex}][supplement]" placeholder="hogehogehoge" class="w-full p-3 border rounded-lg mt-4" rows="3"></textarea>
+            <textarea name="quiz[questions_attributes][${questionIndex}][supplement]" placeholder="解説・参考" class="w-full p-3 border rounded-lg mt-4" rows="3"></textarea>
             <input type="hidden" name="quiz[questions_attributes][${questionIndex}][_destroy]" value="false">
             <div class="mb-4">
                 <label for="quiz[questions_attributes][${questionIndex}][point_id]" class="block text-lg font-semibold">ポイント</label>

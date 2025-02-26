@@ -1,8 +1,8 @@
 class QuizzesController < ApplicationController
     def index
-        @quizzes = Quiz.all
-        @user = current_user # 現在のユーザーを取得
-        @current_score = @user.total_points if @user # ユーザーが存在する場合にポイントを計算
+        @quizzes = Quiz.includes(:tags, :user).all  # タグとユーザー情報をプリロード
+        @user = current_user
+        @current_score = @user.total_points if @user
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
         @users = User.all
     end
@@ -22,6 +22,7 @@ class QuizzesController < ApplicationController
         @quiz = Quiz.new
         @quiz.questions.build.choices.build  # クイズ作成時に質問と選択肢のフォームを用意
         @points = Point.all
+        @tags = Tag.all
     end
     
     def create
@@ -72,6 +73,7 @@ class QuizzesController < ApplicationController
         :title,
         :description,
         :image,
+        :tag_ids => [],
         questions_attributes: [
             :id,
             :content,
