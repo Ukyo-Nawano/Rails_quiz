@@ -63,5 +63,5 @@
     </div>
 
 <% end %>
-<%= link_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
+<%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
 <%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>
