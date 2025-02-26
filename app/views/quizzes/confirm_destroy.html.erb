@@ -46,17 +46,22 @@
                             </div>
                         <% end %>
                     </div>
-
                     <%= question_form.text_area :supplement, value: question_form.object.supplement, class: "w-full p-3 border rounded-lg mt-4", rows: 3, placeholder: "解説を入力" %>
                     <input type="hidden" name="quiz[questions_attributes][#{question_form.index}][_destroy]" value="false">
+                    <% if @quiz.questions.count == 1 %>
+                        <div class="mt-2">
+                            <%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
+                        </div>
+                    <% else %>
+                        <div class="mt-2">
+                            <%= button_to "設問を削除", [@quiz, question_form.object], method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:text-red-700" %>
+                        </div>
+                    <% end %>
                 </div>
             <% end %>
         </div>
-        <button type="button" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600" id="add-question">質問を追加</button>
     </div>
 
-    <div class="mb-6 text-center">
-        <%= form.submit "クイズを更新", class: "bg-blue-500 text-block py-2 px-6 rounded-lg hover:bg-blue-600" %>
-    </div>
 <% end %>
+<%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
 <%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>

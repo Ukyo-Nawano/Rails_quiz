@@ -1,15 +1,17 @@
 class QuizzesController < ApplicationController
     def index
         @quizzes = Quiz.all
+        @user = current_user # 現在のユーザーを取得
+        @current_score = @user.total_points if @user # ユーザーが存在する場合にポイントを計算
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
-        @user = session[:userinfo]
         @users = User.all
     end
     include Secured
 
     def overview
         @quiz = Quiz.find(params[:id])
-        @is_owner = @quiz.user_id == current_user.id
+        @first_question = @quiz.questions.first # 最初の設問を取得
+        @is_owner = current_user == @quiz.user # クイズのオーナーかどうかを判定
     end
 
     def show
@@ -32,26 +34,6 @@ class QuizzesController < ApplicationController
         end
     end
 
-    def quiz_params
-    params.require(:quiz).permit(
-    :title,
-    :description,
-    :image,
-    questions_attributes: [
-        :id,
-        :content,
-        :supplement,
-        :_destroy,
-        choices_attributes: [
-        :id,
-        :name,
-        :is_valid,
-        :_destroy
-        ]
-    ]
-    )
-    end
-
 
     def edit
         @quiz = Quiz.find(params[:id])
@@ -69,8 +51,39 @@ class QuizzesController < ApplicationController
     end
 
     def destroy
-        @quiz = Quiz.find(params[:id])
-        @quiz.update(deleted_at: Time.current)
-        redirect_to quizzes_path, notice: 'クイズが削除されました！'
+        @quiz = Quiz.includes(questions: :choices).find(params[:id]) # 関連する設問と選択肢を含めて取得
+        Rails.logger.debug("Deleting quiz: #{@quiz.inspect}")
+        if @quiz.destroy
+            Rails.logger.debug("Quiz deleted successfully")
+            redirect_to quizzes_path, notice: 'クイズが削除されました！'
+        else
+            Rails.logger.debug("Failed to delete quiz")
+            redirect_to quizzes_path, alert: 'クイズの削除に失敗しました。'
+        end
     end
+
+    def confirm_destroy
+        @quiz = Quiz.find(params[:id])
+    end
+
+    def quiz_params
+        params.require(:quiz).permit(
+        :title,
+        :description,
+        :image,
+        questions_attributes: [
+            :id,
+            :content,
+            :supplement,
+            :_destroy,
+            choices_attributes: [
+            :id,
+            :name,
+            :is_valid,
+            :_destroy
+            ]
+        ]
+        )
+    end
+
 end

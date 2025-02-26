@@ -13,14 +13,24 @@ Rails.application.routes.draw do
   # root "posts#index"
   # root "application#hello"
   resources :quizzes do
-    resources :questions, only: [:index, :edit, :update, :destroy] # クイズに紐づく質問を表示
     member do
       get 'overview'
-      delete :destroy # destroyアクションのルーティング
+    end
+    resources :questions, only: [:index, :create, :edit, :update, :destroy, :show] do
+      member do
+        get 'answer'
+        get 'result'
+        get 'confirm_destroy'
+        delete :destroy # destroyアクションのルーティング
+      end
+    end
+    member do
+      get 'confirm_destroy' # クイズ削除確認ページ
     end
   end
   resources :choices
   resources :users, only: [:index, :show]
+  resources :user_questions, only: [:create]
 
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'

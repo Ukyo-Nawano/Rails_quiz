@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結果</title>
+</head>
+<body>
+    <h1>結果</h1>
+    <p>あなたの正解数: <%= @correct_answers %> / <%= @total_questions %></p>
+    <% if @correct_answers == @total_questions %>
+        <p>素晴らしい！全問正解です！</p>
+    <% else %>
+        <p>次回はもっと頑張りましょう！</p>
+    <% end %>
+    <%= link_to '再挑戦する', quiz_question_path(@quiz, @first_question), class: 'btn btn-primary' %>
+    <%= link_to "トップに戻る", quizzes_path, class: "ml-4 text-blue-500 hover:underline" %>
+</body>
+</html> 
