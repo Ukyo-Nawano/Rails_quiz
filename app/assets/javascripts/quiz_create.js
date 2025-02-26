@@ -70,4 +70,17 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
+    const addQuestionButton = document.getElementById("add-question");
+    if (addQuestionButton) {
+        addQuestionButton.addEventListener("click", function () {
+        });
+    }
+
+    // 正解のラジオボタンのイベントリスナー
+    const questionsFields = document.getElementById("questions-fields");
+    if (questionsFields) {
+        questionsFields.addEventListener("change", function (event) {
+        });
+    }
 });
