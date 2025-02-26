@@ -21,6 +21,7 @@ class QuizzesController < ApplicationController
     def new
         @quiz = Quiz.new
         @quiz.questions.build.choices.build  # クイズ作成時に質問と選択肢のフォームを用意
+        @points = Point.all
     end
     
     def create
@@ -75,6 +76,7 @@ class QuizzesController < ApplicationController
             :id,
             :content,
             :supplement,
+            :point_id,
             :_destroy,
             choices_attributes: [
             :id,

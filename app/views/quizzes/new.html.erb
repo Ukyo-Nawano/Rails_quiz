@@ -1,3 +1,6 @@
+<script>
+  window.availablePoints = <%= raw Point.all.to_json %>
+</script>
 <h1 class="text-3xl font-bold text-center mb-6">クイズを作成する</h1>
 
 <%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto" do |form| %>
