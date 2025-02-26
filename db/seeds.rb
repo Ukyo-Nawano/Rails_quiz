@@ -88,14 +88,6 @@ Favorite.create([
     { user_id: 2, quiz_id: 3, favorite: true },
     { user_id: 4, quiz_id: 1, favorite: true },
 ])
-TagQuiz.create([
-    { quiz_id: 1, tag_id: 1 },
-    { quiz_id: 1, tag_id: 2 },
-    { quiz_id: 2, tag_id: 3 },
-    { quiz_id: 3, tag_id: 2 },
-    { quiz_id: 3, tag_id: 4 },
-    { quiz_id: 4, tag_id: 1 },
-])
 Tag.create([
     { tag: "IT" },
     { tag: "食品" },
@@ -103,4 +95,12 @@ Tag.create([
     { tag: "料理" },
     { tag: "学校" },
     { tag: "TV" },
+])
+TagQuiz.create([
+    { quiz_id: 1, tag_id: 1 },
+    { quiz_id: 1, tag_id: 2 },
+    { quiz_id: 2, tag_id: 3 },
+    { quiz_id: 3, tag_id: 2 },
+    { quiz_id: 3, tag_id: 4 },
+    { quiz_id: 4, tag_id: 1 },
 ])

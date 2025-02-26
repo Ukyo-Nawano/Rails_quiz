@@ -10,11 +10,16 @@
       <% end %>
       <p><%= quiz.title %></p>
       <p class="text-green-75 pt-12">作成者: <%= quiz.user.name %></p>
-      <p>タグ:
-        <% quiz.tags.each do |tag| %>
-          <span class="tag"><%= tag.tag %></span>
-        <% end %>
-      </p>
+        <div class="mt-2">
+            <p class="text-sm text-gray-600">タグ:</p>
+            <div class="flex flex-wrap gap-2">
+              <% quiz.tags.each do |tag| %>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
+                  #<%= tag.tag %>
+                </span>
+              <% end %>
+            </div>
+        </div>
     <% end %>
     </div>
   <% end %>
