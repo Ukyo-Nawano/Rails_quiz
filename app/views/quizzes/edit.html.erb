@@ -2,7 +2,7 @@
   window.availablePoints = <%= raw Point.all.to_json %>
 </script>
 
-<h1 class="text-3xl font-bold text-center mb-6">クイズを編集する</h1>
+<h1 class="text-3xl font-bold text-center mb-6 pt-12">クイズを編集する</h1>
 
 <%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto" do |form| %>
     <% if @quiz.errors.any? %>
@@ -63,10 +63,10 @@
 
                     <%= question_form.text_area :supplement, value: question_form.object.supplement, class: "w-full p-3 border rounded-lg mt-4", rows: 3, placeholder: "解説を入力" %>
                     <input type="hidden" name="quiz[questions_attributes][#{question_form.index}][_destroy]" value="false">
-                     <div class="mb-4">
+                    <div class="mb-4">
                         <%= question_form.label :point_id, 'ポイント', class: "block text-lg font-semibold" %>
-                        <%= question_form.collection_select :point_id, Point.all, :id, :point, 
-                            { prompt: "ポイントを選択してください" }, 
+                        <%= question_form.collection_select :point_id, Point.all, :id, :point,
+                            { prompt: "ポイントを選択してください" },
                             { class: "w-full p-3 border rounded-lg" } %>
                     </div>
                 </div>
