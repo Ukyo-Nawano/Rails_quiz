@@ -52,19 +52,18 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.type === "radio" && event.target.name.includes("correct_choice")) {
             const questionField = event.target.closest(".question-fields");
             const allChoiceRadios = questionField.querySelectorAll("input[type='radio']");
-
-            // すべての選択肢のis_validをfalseに設定
+            
+            // すべての選択肢の is_valid を false にする
             allChoiceRadios.forEach(radio => {
                 const hiddenInput = radio.closest('.choice-fields').querySelector('input[type="hidden"]');
                 if (hiddenInput) {
                     hiddenInput.value = "false";
                 }
             });
-
-            // 正解に選ばれた選択肢のis_validをtrueに設定
-            const selectedChoiceIndex = event.target.value;
-            const correctChoiceField = questionField.querySelectorAll('.choice-fields')[selectedChoiceIndex];
-            const hiddenInput = correctChoiceField.querySelector('input[type="hidden"]');
+            
+            // 選択された選択肢の is_valid を true にする
+            const selectedChoiceField = event.target.closest('.choice-fields');
+            const hiddenInput = selectedChoiceField.querySelector('input[type="hidden"]');
             if (hiddenInput) {
                 hiddenInput.value = "true";
             }
@@ -83,4 +82,55 @@ document.addEventListener("DOMContentLoaded", function () {
         questionsFields.addEventListener("change", function (event) {
         });
     }
+
+    document.querySelector("form").addEventListener("submit", function (event) {
+        let errors = [];
+        const title = document.querySelector("input[name='quiz[title]']").value.trim();
+        const tags = document.querySelectorAll("input[name='quiz[tag_ids][]']:checked");
+        const questions = document.querySelectorAll(".question-fields");
+
+        if (tags.length === 0) {
+            errors.push("タグを1つ以上選択してください。");
+        }
+        if (title.length < 1 || title.length > 50) {
+            errors.push("クイズタイトルは1文字以上50文字以内で入力してください。");
+        }
+        if (questions.length < 1) {
+            errors.push("設問を1問以上追加してください。");
+        }
+
+        questions.forEach((question, index) => {
+            const content = question.querySelector(`input[name^='quiz[questions_attributes][${index}][content]']`).value.trim();
+            const supplement = question.querySelector(`textarea[name^='quiz[questions_attributes][${index}][supplement]']`).value.trim();
+            const choices = question.querySelectorAll(`input[name^='quiz[questions_attributes][${index}][choices_attributes]'][type="text"]`);
+            const point = question.querySelector(`select[name^='quiz[questions_attributes][${index}][point_id]']`).value;
+            const correctChoice = question.querySelectorAll(`input[name^='quiz[questions_attributes][${index}][correct_choice]']:checked`);
+
+            if (content.length < 1 || content.length > 50) {
+                errors.push(`設問${index + 1}の内容は1文字以上50文字以内で入力してください。`);
+            }
+            if (supplement.length > 0 && supplement.length > 50) {
+                errors.push(`設問${index + 1}の解説は1文字以上50文字以内で入力してください。`);
+            }
+            if (!point) {
+                errors.push(`設問${index + 1}のポイントを選択してください。`);
+            }
+            if (choices.length < 2) {
+                errors.push(`設問${index + 1}には2つ以上の選択肢が必要です。`);
+            }
+            choices.forEach((choice, choiceIndex) => {
+                if (choice.value.trim().length < 1 || choice.value.trim().length > 50) {
+                    errors.push(`設問${index + 1}の選択肢${choiceIndex + 1}の内容は1文字以上50文字以内で入力してください。`);
+                }
+            });
+            if (correctChoice.length === 0) {
+                errors.push(`設問${index + 1}の正解を1つ選択してください。`);
+            }
+        });
+
+        if (errors.length > 0) {
+            event.preventDefault();
+            alert(errors.join("\n"));
+        }
+    });
 });

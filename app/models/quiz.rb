@@ -8,4 +8,9 @@ class Quiz < ApplicationRecord
         image.attached? ? image.filename.to_s : nil
     end
     accepts_nested_attributes_for :questions, allow_destroy: true
+    validates :tag_ids, presence: { message: "を1つ以上選択してください" }
+    validates :title, presence: true, length: { minimum: 1, maximum: 50 }
+    validates :description, length: { maximum: 500 }, allow_blank: true
+    validates :image, presence: { message: "をアップロードしてください" }, on: :create
+    validates :questions, length: { minimum: 1, message: "を1問以上追加してください" }
 end
