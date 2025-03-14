@@ -39,6 +39,7 @@ class QuizzesController < ApplicationController
 
     def edit
         @quiz = Quiz.find(params[:id])
+        @available_points = Point.all
     end
 
     def update

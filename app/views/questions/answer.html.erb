@@ -105,7 +105,7 @@
             <%= @question.choices.find_by(is_valid: true).name %>
         </p>
 
-        <h2>解説</h2>
+        <h2>解説・参考</h2>
         <p><%= @explanation %></p>
 
         <% next_question = @question.quiz.questions.where("id > ?", @question.id).first %>
