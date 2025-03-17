@@ -35,10 +35,21 @@
         <%= form.text_area :description, class: "w-full p-3 border rounded-lg", placeholder: "クイズの説明" %>
     </div>
 
-    <div class="mb-6">
-        <%= form.label :image, 'サムネイル', class: "block text-lg font-semibold" %>
-        <%= form.file_field :image, class: "w-full p-3 border rounded-lg" %>
-    </div>
+<div class="mb-6">
+    <%= form.label :image, 'サムネイル', class: "block text-lg font-semibold" %>
+    
+    <!-- サムネイル画像の表示 -->
+    <% if @quiz.image.attached? %>
+        <div class="mb-4">
+            <img src="<%= url_for(@quiz.image) %>" alt="サムネイル" class="w-full h-auto rounded-lg" />
+        </div>
+        <p>※画像は既にアップロードされています</p>
+    <% else %>
+        <p class="text-gray-500">画像はアップロードされていません。</p>
+    <% end %>
+
+    <%= form.file_field :image, class: "w-full p-3 border rounded-lg" %>
+</div>
 
     <div class="mb-6">
         <h2 class="text-lg font-semibold">設問</h2>

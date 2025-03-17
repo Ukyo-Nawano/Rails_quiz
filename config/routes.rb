@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   resources :choices
   resources :users, only: [:index, :show]
   resources :user_questions, only: [:create]
+  resources :quizzes do
+    resource :favorites, only: [:create, :destroy] # create と destroy を指定
+  end
 
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'
