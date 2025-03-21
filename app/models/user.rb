@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     has_many :quizzes
+    has_many :favorites
+    has_many :favorite_quizzes, through: :favorites, source: :quiz
 
     def total_points
         UserQuestion.joins(question: :point)

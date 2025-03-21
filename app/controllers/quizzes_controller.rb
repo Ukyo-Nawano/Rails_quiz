@@ -1,10 +1,25 @@
 class QuizzesController < ApplicationController
     def index
         @quizzes = Quiz.includes(:tags, :user).all  # タグとユーザー情報をプリロード
+        @favorite_quizzes = current_user.favorites.includes(:quiz).map(&:quiz)
         @user = current_user
         @current_score = @user.total_points if @user
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
         @users = User.all
+        @my_quizzes = current_user.quizzes  # 自分が作成したクイズ
+        @quizzes_with_is_first = @quizzes.order(created_at: :desc).map do |quiz|
+            # ユーザーがそのクイズに回答したかどうかを判定
+            is_first = UserQuestion.where(user_id: current_user.id, question: quiz.questions).empty?
+            { quiz: quiz, is_first: is_first }
+        end
+        @favorite_quizzes_with_is_first = @favorite_quizzes.map do |quiz|
+            is_first = UserQuestion.where(user_id: current_user.id, question: quiz.questions).empty?
+            { quiz: quiz, is_first: is_first }
+        end
+        @my_quizzes_with_is_first = @my_quizzes.order(created_at: :desc).map do |quiz|
+            is_first = UserQuestion.where(user_id: current_user.id, question: quiz.questions).empty?
+            { quiz: quiz, is_first: is_first }
+        end
     end
     include Secured
 
@@ -39,6 +54,7 @@ class QuizzesController < ApplicationController
 
     def edit
         @quiz = Quiz.find(params[:id])
+        @available_points = Point.all
     end
 
     def update

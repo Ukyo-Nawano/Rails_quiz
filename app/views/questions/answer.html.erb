@@ -1,27 +1,121 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>解説</title>
-</head>
-<body>
-    <h1>質問: <%= @question.content %></h1>
-    <p>あなたの回答: <%= @user_answer == true ? '正解' : '不正解' %></p>
-    <% if @user_answer == true %>
-        <p>おめでとうございます！正解です。</p>
-    <% else %>
-        <p>残念ながら不正解です。もう一度挑戦してください。</p>
-    <% end %>
-    <h2>解説</h2>
-    <p><%= @explanation %></p>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F4F9F8; /* 明るい背景色 */
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
 
-    <% next_question = @question.quiz.questions.where("id > ?", @question.id).first %>
-    <% if next_question %>
-        <%= link_to '次の質問へ', quiz_question_path(@question.quiz_id, next_question.id), class: 'btn btn-primary' %>
-    <% else %>
-        <p>これが最後の質問です。</p>
-        <%= link_to '結果を確認する', result_quiz_question_path(@question.quiz_id), class: 'btn btn-primary' %>
-    <% end %>
+        p {
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+
+        .btn {
+            background-color: #3DB8A4; /* ボタンの色 */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .btn:hover {
+            background-color: #339D88; /* ホバー時の色 */
+        }
+
+        .btn-primary {
+            background-color: #3DB8A4;
+        }
+
+        .btn-primary:hover {
+            background-color: #339D88;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #3DB8A4; /* Green-100色 */
+            margin-top: 40px;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .correct {
+            background-color: #E0F8F0; /* 正解の背景色 */
+            color: #1A7F56;
+        }
+
+        .incorrect {
+            background-color: #FFEBEB; /* 不正解の背景色 */
+            color: #D9534F;
+        }
+
+        .correct-answer {
+            font-weight: bold;
+            color: #1A7F56; /* 正解の色 */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content-container">
+        <p class="text-3xl font-bold leading-normal">質問：<%= @question.content %></p>
+
+        <div class="result-message <%= @user_answer == true ? 'correct' : 'incorrect' %>">
+            <p>あなたの回答: <%= @user_answer == true ? '正解' : '不正解' %></p>
+
+            <% if @user_answer == true %>
+                <p>おめでとうございます！正解です。</p>
+            <% else %>
+                <p>残念ながら不正解です。もう一度挑戦してください。</p>
+            <% end %>
+        </div>
+
+        <!-- 正解の選択肢を表示 -->
+        <p class="correct-answer">正解の選択肢:
+            <%= @question.choices.find_by(is_valid: true).name %>
+        </p>
+
+        <h2>解説・参考</h2>
+        <p><%= @explanation %></p>
+
+        <% next_question = @question.quiz.questions.where("id > ?", @question.id).first %>
+        <% if next_question %>
+            <%= link_to '次の質問へ', quiz_question_path(@question.quiz_id, next_question.id), class: 'btn btn-primary' %>
+        <% else %>
+            <p>これが最後の質問です。</p>
+            <%= link_to '結果を確認する', result_quiz_question_path(@question.quiz_id), class: 'btn btn-primary' %>
+        <% end %>
+    </div>
 </body>
+
 </html>

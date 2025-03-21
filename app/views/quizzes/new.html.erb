@@ -1,11 +1,12 @@
 <script>
   window.availablePoints = <%= raw Point.all.to_json %>
 </script>
-<h1 class="text-3xl font-bold text-center mb-6">クイズを作成する</h1>
 
-<%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto" do |form| %>
+<h1 class="text-3xl font-bold text-center mb-6 text-[#3DB8A4] pt-12">クイズを作成する</h1>
+
+<%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto bg-white p-6 rounded-lg shadow-md" do |form| %>
   <% if @quiz.errors.any? %>
-    <div class="bg-red-500 text-black p-4 rounded-lg mb-6">
+    <div class="bg-red-500 text-white p-4 rounded-lg mb-6">
       <ul>
         <% @quiz.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -15,7 +16,7 @@
   <% end %>
 
   <div class="mb-6">
-    <%= form.label :tag_ids, 'タグ', class: "block text-lg font-semibold" %>
+    <%= form.label :tag_ids, 'タグ', class: "block text-lg font-semibold text-[#3DB8A4]" %>
     <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :tag do |b| %>
       <div class="inline-block mr-4 mb-2">
         <%= b.check_box class: "mr-1" %>
@@ -25,30 +26,32 @@
   </div>
 
   <div class="mb-6">
-    <%= form.label :title, 'クイズのタイトル', class: "block text-lg font-semibold" %>
-    <%= form.text_field :title, class: "w-full p-3 border rounded-lg", placeholder: "クイズタイトル" %>
+    <%= form.label :title, 'クイズのタイトル', class: "block text-lg font-semibold text-[#3DB8A4]" %>
+    <%= form.text_field :title, class: "w-full p-3 border border-[#3DB8A4] rounded-lg", placeholder: "クイズタイトル" %>
   </div>
 
   <div class="mb-6">
-    <%= form.label :description, 'クイズの説明', class: "block text-lg font-semibold" %>
-    <%= form.text_area :description, class: "w-full p-3 border rounded-lg", placeholder: "クイズの説明" %>
+    <%= form.label :description, 'クイズの説明', class: "block text-lg font-semibold text-[#3DB8A4]" %>
+    <%= form.text_area :description, class: "w-full p-3 border border-[#3DB8A4] rounded-lg", placeholder: "クイズの説明" %>
   </div>
 
   <div class="mb-6">
-    <%= form.label :image, 'サムネイル', class: "block text-lg font-semibold" %>
-    <%= form.file_field :image, class: "w-full p-3 border rounded-lg" %>
+    <%= form.label :image, 'サムネイル', class: "block text-lg font-semibold text-[#3DB8A4]" %>
+    <%= form.file_field :image, class: "w-full p-3 border border-[#3DB8A4] rounded-lg" %>
   </div>
 
   <div class="mb-6">
-    <h2 class="text-lg font-semibold">質問を追加</h2>
+    <h2 class="text-lg font-semibold text-[#3DB8A4]">質問を追加</h2>
     <div id="questions-fields">
-    <!-- 質問追加ボタン -->
-    <button type="button" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600" id="add-question">質問を追加</button>
+      <!-- 質問追加ボタン -->
+      <button type="button" class="bg-[#0071bc] text-white py-2 px-4 rounded-lg hover:bg-green-75 mt-4" id="add-question">質問を追加</button>
+    </div>
   </div>
 
   <div class="mb-6 text-center">
-    <%= form.submit "クイズを作成", class: "bg-blue-500 text-block py-2 px-6 rounded-lg hover:bg-blue-600" %>
+    <%= form.submit "クイズを作成", class: "bg-green-100 text-white py-2 px-6 rounded-lg cursor-pointer hover:bg-green-75" %>
   </div>
 <% end %>
 
-<%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>
+<%= link_to "戻る", quizzes_path, class: "text-[#3DB8A4] hover:underline bg-gray-200 text-white py-2 px-6 rounded-lg shadow-md text-center block mt-6 mx-auto max-w-md" %>
+

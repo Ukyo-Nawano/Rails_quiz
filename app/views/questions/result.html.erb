@@ -1,19 +1,113 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>結果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F4F9F8; /* 明るい背景色 */
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #3DB8A4; /* Green-100色 */
+            margin-top: 40px;
+            font-weight:bold;
+            font-size:32px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+
+        .btn {
+            background-color: #3DB8A4; /* ボタンの色 */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .btn:hover {
+            background-color: #339D88; /* ホバー時の色 */
+        }
+
+        .link {
+            color: #3DB8A4; /* Green-100色 */
+            font-size: 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: #339D88; /* ホバー時の色 */
+            text-decoration: underline;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        .perfect-score {
+            background-color: #E0F8F0; /* 正解時の背景色 */
+            color: #1A7F56;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .try-again {
+            background-color: #FFEBEB; /* 不正解時の背景色 */
+            color: #D9534F;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>結果</h1>
-    <p>あなたの正解数: <%= @correct_answers %> / <%= @total_questions %></p>
-    <% if @correct_answers == @total_questions %>
-        <p>素晴らしい！全問正解です！</p>
-    <% else %>
-        <p>次回はもっと頑張りましょう！</p>
-    <% end %>
-    <%= link_to '再挑戦する', quiz_question_path(@quiz, @first_question), class: 'btn btn-primary' %>
-    <%= link_to "トップに戻る", quizzes_path, class: "ml-4 text-blue-500 hover:underline" %>
+    <div class="content-container">
+        <h1>結果</h1>
+        <p>あなたの正解数: <%= @correct_answers %> / <%= @total_questions %></p>
+
+        <% if @correct_answers == @total_questions %>
+            <div class="perfect-score">
+                <p>素晴らしい！全問正解です！</p>
+            </div>
+        <% else %>
+            <div class="try-again">
+                <p>次回はもっと頑張りましょう！</p>
+            </div>
+        <% end %>
+
+        <%= link_to '再挑戦する', quiz_question_path(@quiz, @first_question), class: 'btn' %>
+        <%= link_to "トップに戻る", quizzes_path, class: "link" %>
+    </div>
 </body>
-</html> 
+
+</html>

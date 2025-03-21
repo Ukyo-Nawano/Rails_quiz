@@ -1,5 +1,7 @@
-<h1 class="text-3xl font-bold text-center mb-6">クイズを編集する</h1>
-
+<h1 class="text-3xl font-bold text-center mb-6 pt-12">本当に削除しますか？</h1>
+<div class="mb-6 text-center">
+    <%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600" %>
+</div>
 <%= form_with model: @quiz, local: true, class: "w-full max-w-md mx-auto" do |form| %>
     <% if @quiz.errors.any? %>
         <div class="bg-red-500 text-black p-4 rounded-lg mb-6">
@@ -50,11 +52,11 @@
                     <input type="hidden" name="quiz[questions_attributes][#{question_form.index}][_destroy]" value="false">
                     <% if @quiz.questions.count == 1 %>
                         <div class="mt-2">
-                            <%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
+                            <%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600" %>
                         </div>
                     <% else %>
                         <div class="mt-2">
-                            <%= button_to "設問を削除", [@quiz, question_form.object], method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:text-red-700" %>
+                            <%= button_to "設問を削除", [@quiz, question_form.object], method: :delete, data: { confirm: "本当に削除しますか？" }, class: "px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600" %>
                         </div>
                     <% end %>
                 </div>
@@ -63,5 +65,7 @@
     </div>
 
 <% end %>
-<%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500 hover:underline" %>
-<%= link_to "戻る", quizzes_path, class: "text-blue-500 hover:underline" %>
+<div class="mb-6 text-center">
+    <%= button_to "クイズを削除", quiz_path(@quiz), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600" %>
+</div>
+<%= link_to "戻る", quizzes_path, class: "text-[#3DB8A4] hover:underline bg-gray-200 text-white py-2 px-6 rounded-lg shadow-md text-center block mt-6 mx-auto max-w-md" %>
