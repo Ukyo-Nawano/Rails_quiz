@@ -7,7 +7,7 @@ class QuizzesController < ApplicationController
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
         @users = User.all
         @my_quizzes = current_user.quizzes  # 自分が作成したクイズ
-        @quizzes_with_is_first = @quizzes.map do |quiz|
+        @quizzes_with_is_first = @quizzes.order(created_at: :desc).map do |quiz|
             # ユーザーがそのクイズに回答したかどうかを判定
             is_first = UserQuestion.where(user_id: current_user.id, question: quiz.questions).empty?
             { quiz: quiz, is_first: is_first }
@@ -16,7 +16,7 @@ class QuizzesController < ApplicationController
             is_first = UserQuestion.where(user_id: current_user.id, question: quiz.questions).empty?
             { quiz: quiz, is_first: is_first }
         end
-        @my_quizzes_with_is_first = @my_quizzes.map do |quiz|
+        @my_quizzes_with_is_first = @my_quizzes.order(created_at: :desc).map do |quiz|
             is_first = UserQuestion.where(user_id: current_user.id, question: quiz.questions).empty?
             { quiz: quiz, is_first: is_first }
         end

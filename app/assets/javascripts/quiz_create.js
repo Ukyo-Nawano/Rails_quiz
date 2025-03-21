@@ -129,9 +129,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     errors.push(`設問${index + 1}の選択肢${choiceIndex + 1}の内容は1文字以上50文字以内で入力してください。`);
                 }
             });
-            if (correctChoice.length === 0) {
-                errors.push(`設問${index + 1}の正解を1つ選択してください。`);
-            }
+            // if (correctChoice.length === 0) {
+            //     errors.push(`設問${index + 1}の正解を1つ選択してください。`);
+            // }
         });
 
         if (errors.length > 0) {
