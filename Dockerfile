@@ -5,7 +5,7 @@
 # docker run -d -p 80:80 -p 443:443 --name my-app -e RAILS_MASTER_KEY=<value from config/master.key> my-app
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.3.5
+ARG RUBY_VERSION=3.2.5
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -14,6 +14,20 @@ WORKDIR /rails
 # Install base packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
+    apt-get install --fix-missing && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Check if /etc/apt/sources.list exists before attempting to modify it
+RUN if [ -f /etc/apt/sources.list ]; then \
+        sed -i 's|http://deb.debian.org/debian|http://ftp.jp.debian.org/debian|g' /etc/apt/sources.list; \
+    fi && \
+    apt-get update -qq && \
+    apt-get install -y build-essential libmariadb-dev && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install Node.js and npm
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y nodejs npm && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -67,3 +81,15 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
+# Add development environment settings
+FROM base AS development
+
+# Install development packages
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git pkg-config && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Set environment variables
+ENV RAILS_ENV="development" \
+    BUNDLE_PATH="/usr/local/bundle"

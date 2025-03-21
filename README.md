@@ -33,8 +33,42 @@ source ~/.zprofile
 brew install rbenv
 rbenv init
 source ~/.bash_profile  # Or ~/.zshrc, depending on your shell
-rbenv install 3.2.2
-rbenv global 3.2.2
+rbenv install 3.2.5
+rbenv global 3.2.5
 gem install rails -v 7.2.1
 
 bin/rails s　でtailwindも起動できる
+./bin/dev でtailwindが起動し監視
+
+brew update
+brew upgrade ruby
+gem install bundler
+bundle install
+gem pristine --all
+
+model作成
+rails generate model Quizzes content:string image:string supplement:string
+rails db:migrate
+controller作成
+rails generate controller Quizzes
+seeder作成
+rails generate seed Quizzes content:string image:string supplement:string
+rails db:seed(しなくて良い)
+
+rails db:reset
+
+rails new . --skip-bundle --skip-git は既存プロジェクトに導入できる
+
+
+docker-compose exec web bash
+bundle install
+bundle exec rails db:create
+bundle exec rails db:migrate
+bundle exec rails s -b '0.0.0.0'
+bundle exec rails db:seed
+
+mysqlに入る
+docker-compose exec db mysql -u root -ppassword
+
+npx tailwindcss -i ./app/assets/stylesheets/style.css -o ./app/assets/stylesheets/output.css --watch
+で監視 or npm run build:css

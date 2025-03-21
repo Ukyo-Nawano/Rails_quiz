@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= @question.content %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        .btn-choice {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #0071bc; /* ボタンの背景色 */
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 8px; /* 丸みをつける */
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 600px; /* ボタンの幅を100%に設定 */
+            margin-bottom: 12px; /* ボタン間に隙間を追加 */
+        }
+
+        .btn-choice:hover {
+            background-color: #005a8d; /* ホバー時の色変更 */
+            transform: scale(1.05); /* ホバー時に少し大きくなる */
+        }
+
+        .btn-choice:active {
+            background-color: #004d72; /* クリック時の色変更 */
+            transform: scale(0.98); /* クリック時に少し縮む */
+        }
+
+        .choice-container {
+            display: flex;
+            flex-direction: column; /* 縦並びに変更 */
+            align-items: center; /* 中央寄せ */
+            gap: 12px; /* ボタン間の隙間 */
+            width: 100%;
+        }
+        @media (max-width: 700px) {
+            .btn-choice {
+                width: 400px; /* 幅を400pxに設定 */
+            }
+        }
+
+        /* 画面幅400px以下 */
+        @media (max-width: 400px) {
+            .btn-choice {
+                width: 200px; /* 幅を200pxに設定 */
+            }
+        }
+    </style>
+</head>
+
+<body class="font-noto">
+
+    <div class="bg-[url('bg-hero.png')] bg-center bg-contain bg-no-repeat text-white font-bold pt-40 pb-10">
+        <div class="ml-10">
+            <p class="text-6xl mt-3 mb-40">
+                <%= @quiz.title %>
+            </p>
+        </div>
+    </div>
+    <main class="w-5/6 mx-auto">
+        <div id="quiz-container">
+            <% if @question.present? %>
+                <div class="w-full mb-32" data-quiz-id="<%= @question.id %>">
+                    <p class="bg-[#0071bc] rounded-lg text-white text-3xl w-20 h-16 font-bold mb-6 flex justify-center items-center">Q<%= @question_index %></p>
+                    <p class="text-xl font-bold mt-4">ポイント: <%= @question.point.point %> pt</p>
+                    <p class="text-3xl font-bold leading-normal"><%= @question.content %></p>
+                    <div class="choice-container pt-12 pb-12 w-full">
+                        <% @question.choices.each do |choice| %>
+                            <%= form_with url: user_questions_path, method: :post, local: true do %>
+                                <%= hidden_field_tag "user_question[user_id]", @user['id'] %>
+                                <%= hidden_field_tag "user_question[question_id]", @question.id %>
+                                <%= hidden_field_tag "user_question[result]", choice.is_valid %>
+                                <%= hidden_field_tag "user_question[is_first]", false %>
+                                <%= submit_tag choice.name, class: "btn-choice" %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                </div>
+            <% else %>
+                <p>質問が見つかりませんでした。</p>
+            <% end %>
+        </div>
+    </main>
+</body>
+
+</html>

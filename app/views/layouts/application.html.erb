@@ -15,13 +15,12 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "reset", "responsive", "style", media: 'all' %>
-    <%= javascript_include_tag 'quiz' %>
+    <%= javascript_include_tag "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'quiz', 'quiz_create', 'favorites', 'toggle_quiz_view' %>
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5">
+      <%# <%= render "layouts/header" %>
       <%= yield %>
-    </main>
   </body>
 </html>

@@ -43,6 +43,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem 'rspec-rails', '~> 5.0.0'
 end
 
 group :development do
@@ -57,3 +59,14 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.7"
+
+gem 'prettier'
+gem 'syntax_tree'
+gem 'haml'
+gem 'rbs'
+gem 'foreman'
+gem "mysql2", "~> 0.5.6"
+gem 'omniauth-auth0', '~> 3.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0' # prevents forged authentication requests
+gem 'dotenv-rails'
+gem 'rack-protection'

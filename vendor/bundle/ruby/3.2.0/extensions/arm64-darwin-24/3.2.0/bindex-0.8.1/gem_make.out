@@ -1,0 +1,19 @@
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+/Users/ukyoh-nawano.ab/.rbenv/versions/3.2.5/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-fo1fir sitelibdir\=./.gem.20241128-46873-fo1fir clean
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-fo1fir sitelibdir\=./.gem.20241128-46873-fo1fir
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-fo1fir sitelibdir\=./.gem.20241128-46873-fo1fir install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20241128-46873-fo1fir/skiptrace/internal
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-fo1fir sitelibdir\=./.gem.20241128-46873-fo1fir clean

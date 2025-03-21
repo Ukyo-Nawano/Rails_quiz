@@ -1,0 +1,28 @@
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/rbs-3.6.1/ext/rbs_extension
+/Users/ukyoh-nawano.ab/.rbenv/versions/3.2.5/bin/ruby extconf.rb
+checking for whether -std=gnu99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/rbs-3.6.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-33knre sitelibdir\=./.gem.20241128-46873-33knre clean
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/rbs-3.6.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-33knre sitelibdir\=./.gem.20241128-46873-33knre
+compiling constants.c
+compiling lexer.c
+compiling lexstate.c
+compiling location.c
+compiling main.c
+compiling parser.c
+compiling parserstate.c
+compiling ruby_objs.c
+compiling unescape.c
+linking shared-object rbs_extension.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/rbs-3.6.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-33knre sitelibdir\=./.gem.20241128-46873-33knre install
+/usr/bin/install -c -m 0755 rbs_extension.bundle ./.gem.20241128-46873-33knre
+
+current directory: /Users/ukyoh-nawano.ab/workspace/Rails_quiz/vendor/bundle/ruby/3.2.0/gems/rbs-3.6.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20241128-46873-33knre sitelibdir\=./.gem.20241128-46873-33knre clean
