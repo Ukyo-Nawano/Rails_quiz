@@ -4,3 +4,4 @@
 //= link quiz.js
 //= link quiz_create.js
 //= link favorites.js
+//= link toggle_quiz_view.js

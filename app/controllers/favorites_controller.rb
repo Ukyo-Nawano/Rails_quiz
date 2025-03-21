@@ -1,26 +1,42 @@
 class FavoritesController < ApplicationController
     def create
         @quiz = Quiz.find(params[:quiz_id])
-        @favorite = current_user.favorites.find_by(quiz_id: @quiz.id)
+        @user = current_user
     
-        if @favorite
-          # 既にお気に入りが存在する場合は、削除する
-          @favorite.destroy
-          render json: { favorited: false }
+        favorite = @user.favorites.find_by(quiz: @quiz)
+    
+        if favorite
+          favorite.destroy
+          favorited = false
         else
-          # お気に入りが存在しない場合は、新規に作成
-          @favorite = current_user.favorites.create(quiz_id: @quiz.id)
-          render json: { favorited: true }
+          @user.favorites.create(quiz: @quiz)
+          favorited = true
         end
-    end
+        render json: { favorited: favorited, favorite_count: @quiz.favorites.count }, status: :ok
+      end
 
-    def destroy
+      def destroy
         favorite = current_user.favorites.find_by(quiz_id: params[:quiz_id])
-
+        quiz = Quiz.find(params[:quiz_id]) # 削除後のカウント取得のために Quiz を取得
         if favorite&.destroy
-            render json: { favorited: false }
+            render json: { favorited: false, favorite_count: quiz.favorites.count }, status: :ok
         else
             render json: { error: "お気に入り解除に失敗しました。" }, status: :unprocessable_entity
         end
+
+        def toggle
+            quiz = Quiz.find(params[:quiz_id])
+            favorite = current_user.favorites.find_by(quiz: quiz)
+        
+            if favorite
+              favorite.destroy
+              favorited = false
+            else
+              current_user.favorites.create(quiz: quiz)
+              favorited = true
+            end
+        
+            render json: { favorited: favorited, favorite_count: quiz.favorites.count }
+          end
     end
 end
