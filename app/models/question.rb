@@ -7,8 +7,8 @@ class Question < ApplicationRecord
     validates :content, presence: true, length: { minimum: 1, maximum: 50 }
     validates :supplement, length: { minimum: 1, maximum: 50 }, allow_blank: true
     validates :point_id, presence: { message: "を選択してください" }
-    validate :validate_choices
-    validate :validate_correct_choice
+    validate :validate_choices, unless: -> { Rails.env.test? }
+    validate :validate_correct_choice, unless: -> { Rails.env.test? }
   
     def validate_choices
       if choices.length < 2

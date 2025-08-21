@@ -85,9 +85,9 @@ CMD ["./bin/rails", "server"]
 # Add development environment settings
 FROM base AS development
 
-# Install development packages
+# Install development packages and MySQL client
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git pkg-config default-mysql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set environment variables

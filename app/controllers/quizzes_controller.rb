@@ -1,7 +1,7 @@
 class QuizzesController < ApplicationController
     def index
-        @quizzes = Quiz.includes(:tags, :user).all  # タグとユーザー情報をプリロード
-        @favorite_quizzes = current_user.favorites.includes(:quiz).map(&:quiz)
+        @quizzes = Quiz.includes(:tags, :user).where.not(user_id: nil)  # ユーザーが存在しないクイズを除外
+        @favorite_quizzes = current_user.favorites.includes(:quiz).map(&:quiz).compact.select { |quiz| quiz.user.present? }
         @user = current_user
         @current_score = @user.total_points if @user
         Rails.logger.debug("session[:userinfo]: #{session[:userinfo].inspect}")
@@ -24,7 +24,9 @@ class QuizzesController < ApplicationController
     include Secured
 
     def overview
-        @quiz = Quiz.find(params[:id])
+        @quiz = Quiz.includes(:user).find(params[:id])
+        # ユーザーが存在しない場合は404エラー
+        raise ActiveRecord::RecordNotFound unless @quiz.user.present?
         @first_question = @quiz.questions.first # 最初の設問を取得
         @is_owner = current_user == @quiz.user # クイズのオーナーかどうかを判定
     end

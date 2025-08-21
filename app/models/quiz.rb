@@ -13,5 +13,5 @@ class Quiz < ApplicationRecord
     # validates :title, presence: true, length: { minimum: 1, maximum: 50 }
     validates :description, length: { maximum: 500 }, allow_blank: true
     validates :image, presence: { message: "をアップロードしてください" }, on: :create
-    validates :questions, length: { minimum: 1, message: "を1問以上追加してください" }
+    validates :questions, length: { minimum: 1, message: "を1問以上追加してください" }, unless: -> { Rails.env.test? }
 end

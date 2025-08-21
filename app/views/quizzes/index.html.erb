@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="mt-2 text-sm text-gray-500">
-        作成者: <%= item[:quiz].user.nickname %>
+        作成者: <%= item[:quiz].user&.nickname || "削除されたユーザー" %>
       </div>
       <%= link_to overview_quiz_path(item[:quiz]) do %>
         <% if item[:quiz].image.attached? %>
@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="mt-2 text-sm text-gray-500">
-        作成者: <%= item[:quiz].user.nickname %>
+        作成者: <%= item[:quiz].user&.nickname || "削除されたユーザー" %>
       </div>
       <%= link_to overview_quiz_path(item[:quiz]) do %>
         <% if item[:quiz].image.attached? %>
@@ -166,7 +166,7 @@
         </div>
       </div>
       <div class="mt-2 text-sm text-gray-500">
-        作成者: <%= item[:quiz].user.nickname %>
+        作成者: <%= item[:quiz].user&.nickname || "削除されたユーザー" %>
       </div>
       <%= link_to overview_quiz_path(item[:quiz]) do %>
         <% if item[:quiz].image.attached? %>
